@@ -1,0 +1,1218 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Koh Samui — Day-by-day route</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#191817; --card:#242322; --card2:#2c2b29; --line:rgba(255,255,255,.09);
+  --line2:rgba(255,255,255,.15);
+  --tx:#f2efeb; --tx2:#a8a29b; --tx3:#78726b;
+  --blue:#7cb2f0; --amber:#e8b23a; --green:#7ec98b; --red:#e8836f;
+  --m-water:#141f26; --m-shoal:#18262e; --m-land:#272522; --m-park:#26302a;
+  --m-road:#3d3a35; --m-edge:#3a3733;
+  --serif:"Source Serif 4",Georgia,serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--sans);
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1200px;margin:0 auto;padding:34px 22px 60px}
+
+/* ---------- header ---------- */
+.eyebrow{font-size:13px;color:var(--tx3);letter-spacing:.02em;margin-bottom:6px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(28px,4.4vw,40px);
+  letter-spacing:-.015em;margin:0 0 10px;line-height:1.1}
+.subhead{color:var(--tx2);font-size:14.5px;margin:0 0 22px}
+.subhead b{color:var(--tx);font-weight:500}
+
+/* ---------- trip shape strip ---------- */
+.wxhead{display:flex;align-items:baseline;gap:14px;margin:0 0 7px;flex-wrap:wrap}
+.wxlegend{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--tx3);flex-wrap:wrap}
+.wxlegend i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--tx2);margin-left:8px}
+.wxlegend i.t2{opacity:.55} .wxlegend i.t3{opacity:.3}
+.wxstrip{display:flex;gap:5px;margin:0}
+.wxcell{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:1px;
+  padding:8px 2px;border-radius:10px;background:rgba(255,255,255,.03);
+  border:1px solid var(--line);cursor:pointer;transition:.16s}
+.wxcell:hover{background:rgba(255,255,255,.07)}
+.wxcell.on{border-color:var(--tx2);background:rgba(255,255,255,.08)}
+.wxcell:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.wxcell svg{width:17px;height:17px;flex:none}
+.wxcell b{font-size:12.5px;font-weight:600;white-space:nowrap;line-height:1.2}
+.wxcell em{font-size:10.5px;font-style:normal;color:var(--tx3);white-space:nowrap}
+.wxcell.t2{opacity:.88} .wxcell.t3{opacity:.72}
+@media (max-width:640px){.wxcell b{font-size:11px}.wxcell em{display:none}}
+.shape{display:flex;gap:5px;margin:0 0 8px;align-items:flex-end;height:40px}
+.sbar{flex:1;border-radius:5px 5px 3px 3px;background:var(--line2);position:relative;
+  cursor:pointer;transition:opacity .18s,transform .18s;min-height:6px}
+.sbar:hover{transform:translateY(-2px)}
+.sbar.on{outline:2px solid var(--tx);outline-offset:2px}
+.sbar:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.shapelab{display:flex;gap:5px;margin-bottom:24px}
+.shapelab span{flex:1;text-align:center;font-size:10.5px;color:var(--tx3);
+  font-variant-numeric:tabular-nums}
+.shapekey{display:flex;gap:16px;font-size:12px;color:var(--tx3);margin:-16px 0 24px;flex-wrap:wrap}
+.shapekey i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* ---------- the module ---------- */
+.mod{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--card);
+  display:grid;grid-template-columns:minmax(0,1fr) 392px;height:min(78vh,720px);min-height:540px}
+.mod{position:relative}
+.detail{position:absolute;top:0;right:0;bottom:0;width:392px;z-index:12;background:#1c1b1a;
+  border-left:1px solid var(--line);display:flex;flex-direction:column;
+  transform:translateX(102%);transition:transform .34s cubic-bezier(.2,0,0,1);visibility:hidden}
+.detail.on{transform:none;visibility:visible}
+.dt-hero{position:relative;flex:none;aspect-ratio:16/10;background:#2a2826;overflow:hidden}
+.dt-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.dt-hero .ph{position:absolute;inset:0;display:grid;place-items:center}
+.dt-hero .ph svg{width:44px;height:44px;opacity:.4}
+.dt-x{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;
+  background:rgba(20,19,18,.72);backdrop-filter:blur(8px);display:grid;place-items:center;
+  transition:.16s}
+.dt-x:hover{background:rgba(20,19,18,.95)}
+.dt-x svg{width:16px;height:16px;fill:#f2efeb}
+.dt-body{flex:1;overflow-y:auto;padding:18px 20px 20px;scrollbar-width:thin;
+  scrollbar-color:var(--line2) transparent}
+.dt-when{font-size:12.5px;color:var(--tx3);margin-bottom:5px}
+.dt-name{font-family:var(--serif);font-weight:600;font-size:25px;line-height:1.15;
+  letter-spacing:-.015em;margin:0 0 7px}
+.dt-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:13.5px;
+  color:var(--tx2);margin-bottom:15px}
+.dt-meta .star{gap:4px}
+.dt-meta .star svg{width:13px;height:13px}
+.dt-note{background:#262523;border-radius:12px;padding:13px 15px;margin-bottom:15px}
+.dt-note h4{margin:0 0 6px;font-size:12.5px;font-weight:500;color:var(--tx3)}
+.dt-note p{margin:0;font-size:14px;line-height:1.55;color:var(--tx)}
+.dt-row{display:flex;align-items:center;gap:11px;padding:9px 0;font-size:13.5px;color:var(--tx2);
+  border-top:1px solid var(--line)}
+.dt-row:first-of-type{border-top:0}
+.dt-row svg{width:16px;height:16px;fill:var(--tx3);flex:none}
+a.dt-row:hover{color:var(--tx)}
+a.dt-row:hover svg{fill:var(--blue)}
+.dt-foot{flex:none;display:flex;align-items:center;gap:10px;padding:12px 14px;
+  border-top:1px solid var(--line);background:#1a1918}
+.dt-nav{width:40px;height:40px;border-radius:50%;background:#2c2b29;display:grid;place-items:center;
+  transition:.16s;flex:none}
+.dt-nav:hover:not(:disabled){background:#3a3835}
+.dt-nav:disabled{opacity:.3}
+.dt-nav svg{width:17px;height:17px;fill:#f2efeb}
+.dt-count{flex:1;text-align:center;font-size:13px;color:var(--tx3)}
+.dt-next{display:flex;align-items:center;gap:7px;background:#f7f5f2;color:#1a1918;font-weight:600;
+  font-size:13.5px;padding:11px 15px;border-radius:100px;transition:.16s;flex:none}
+.dt-next:hover{background:#fff}
+.dt-next svg{width:15px;height:15px;fill:currentColor}
+.stop{cursor:pointer}
+@media (max-width:940px){.detail{position:fixed;inset:0;width:auto;z-index:60;border-left:0}}
+.mapcol{position:relative;min-width:0;background:var(--m-water);border-right:1px solid var(--line)}
+#gmap{position:absolute;inset:0;z-index:2;opacity:0;transition:opacity .45s}
+#gmap.up{opacity:1}
+/* photo pins */
+.gm-pin{position:absolute;transform:translate(-50%,-100%);cursor:pointer;will-change:transform}
+.gm-card{width:56px;height:56px;border-radius:14px;overflow:hidden;border:3px solid #fff;
+  background:#33312e;box-shadow:0 4px 14px rgba(0,0,0,.55);display:grid;place-items:center}
+.gm-card img{width:100%;height:100%;object-fit:cover;display:block}
+.gm-card svg{width:22px;height:22px;opacity:.85}
+.gm-n{position:absolute;top:-7px;right:-7px;width:23px;height:23px;border-radius:50%;background:#fff;
+  color:#1a1918;font-weight:700;font-size:11.5px;line-height:23px;text-align:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.5)}
+.gm-lab{position:absolute;top:63px;left:50%;transform:translateX(-50%);white-space:nowrap;
+  font-weight:600;font-size:12.5px;color:#fff;pointer-events:none;
+  text-shadow:0 1px 4px #000,0 0 3px #000,0 0 10px rgba(0,0,0,.9)}
+.gm-pin.sel .gm-card{border-color:var(--blue);transform:scale(1.06)}
+.gm-villa{position:absolute;transform:translate(-50%,-50%);z-index:1}
+.gm-villa i{display:block;width:14px;height:14px;border-radius:50%;background:#e8836f;
+  border:3px solid #191817;box-shadow:0 0 0 6px rgba(232,131,111,.22)}
+#frame.up{opacity:1}
+#sketch{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.mapnote{position:absolute;left:14px;right:14px;bottom:14px;z-index:3;display:none;
+  background:rgba(15,14,13,.9);border:1px solid var(--line);border-radius:11px;padding:11px 14px;
+  font-size:12.5px;color:var(--tx2);line-height:1.5}
+.mapnote.on{display:block}
+.mapnote b{color:var(--tx)}
+.routechip{position:absolute;left:14px;bottom:14px;z-index:4;display:none;
+  background:rgba(15,14,13,.86);backdrop-filter:blur(10px);border:1px solid var(--line);
+  border-radius:100px;padding:7px 14px;font-size:12px;font-weight:500;color:var(--tx2)}
+.routechip.on{display:block}
+.mapswap{position:absolute;top:14px;right:14px;z-index:4;background:rgba(15,14,13,.86);
+  backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:100px;padding:7px 14px;
+  font-size:12px;font-weight:500;color:var(--tx2);transition:.16s}
+.mapswap:hover{color:var(--tx);border-color:var(--line2)}
+
+/* day pills over the map */
+.pills{display:flex;gap:7px;overflow-x:auto;padding:0 0 14px;scrollbar-width:none}
+.pills::-webkit-scrollbar{display:none}
+.pill{flex:none;padding:9px 16px;border-radius:100px;font-size:13.5px;font-weight:500;
+  background:rgba(20,19,18,.82);backdrop-filter:blur(10px);color:var(--tx2);
+  border:1px solid var(--line);white-space:nowrap;transition:.16s}
+.pill:hover{color:var(--tx);border-color:var(--line2)}
+.pill[aria-selected=true]{background:#f7f5f2;color:#1a1918;border-color:#f7f5f2;font-weight:600}
+.pill:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* floating day panel */
+.panel{min-width:0;padding:20px;overflow-y:auto;background:var(--card);
+  scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.panel::-webkit-scrollbar{width:7px}
+.panel::-webkit-scrollbar-thumb{background:var(--line2);border-radius:8px}
+
+.dtag{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--tx3);margin-bottom:7px}
+.panel h2{font-family:var(--serif);font-weight:600;font-size:26px;line-height:1.15;
+  letter-spacing:-.015em;margin:0 0 9px}
+.gist{color:var(--tx2);font-size:14px;margin:0 0 14px;line-height:1.5}
+.pacerow{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:16px}
+.pace{font-size:12.5px;font-weight:500;padding:5px 12px;border-radius:100px;border:1px solid}
+.wx{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--tx2);
+  background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:100px;padding:4px 11px}
+.wx b{color:var(--tx);font-weight:600}
+.wx .sep{width:3px;height:3px;border-radius:50%;background:var(--tx3);flex:none}
+.pace.easy{color:var(--green);border-color:rgba(126,201,139,.35);background:rgba(126,201,139,.1)}
+.pace.steady{color:var(--tx2);border-color:var(--line2);background:rgba(255,255,255,.04)}
+.pace.busy{color:var(--amber);border-color:rgba(232,178,58,.35);background:rgba(232,178,58,.1)}
+.pace.big{color:var(--red);border-color:rgba(232,131,111,.4);background:rgba(232,131,111,.1)}
+.fact{font-size:12.5px;color:var(--tx3)}
+
+.route-btn{display:inline-flex;align-items:center;gap:9px;background:#f7f5f2;color:#1a1918;
+  font-weight:600;font-size:14px;padding:11px 18px;border-radius:100px;margin-bottom:6px;transition:.16s}
+.route-btn:hover{background:#fff;transform:translateY(-1px)}
+.route-btn svg{width:16px;height:16px;fill:currentColor}
+
+.flag{display:flex;gap:9px;font-size:13px;line-height:1.5;border-radius:11px;padding:11px 13px;
+  margin-top:14px;border:1px solid}
+.flag svg{width:15px;height:15px;flex:none;margin-top:2px}
+.flag.warn{background:rgba(232,131,111,.09);border-color:rgba(232,131,111,.25);color:#f0b6a8}
+.flag.warn svg{fill:var(--red)}
+.flag.tip{background:rgba(124,178,240,.08);border-color:rgba(124,178,240,.22);color:#b8d4f5}
+.flag.tip svg{fill:var(--blue)}
+
+/* time-of-day sections */
+.part{margin-top:22px}
+.part>h3{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);
+  font-weight:600;margin:0 0 10px}
+
+.stop{display:grid;grid-template-columns:44px 1fr;gap:13px;background:var(--card2);
+  border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:8px;transition:.16s}
+.stop:hover{border-color:var(--line2)}
+.stop.dropped{opacity:.42}
+.thumb{width:52px;height:52px;border-radius:11px;display:grid;place-items:center;flex:none;
+  overflow:hidden;position:relative}
+.thumb svg{width:22px;height:22px}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.stop{grid-template-columns:52px 1fr}
+.sinfo{min-width:0}
+.time{font-size:12.5px;color:var(--tx3);font-variant-numeric:tabular-nums;margin-bottom:1px}
+.sname{font-size:15px;font-weight:600;line-height:1.3;margin-bottom:3px;
+  display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.sname a{border-bottom:1px solid transparent;transition:.15s}
+.sname a:hover{border-bottom-color:var(--tx2)}
+.res{font-size:10.5px;font-weight:500;padding:1px 8px;border-radius:100px;
+  background:rgba(232,178,58,.15);color:#e8c46a;border:1px solid rgba(232,178,58,.3)}
+.who{font-size:10.5px;font-weight:500;padding:1px 8px;border-radius:100px;letter-spacing:.02em;
+  background:rgba(124,178,240,.15);color:#a9cdf5;border:1px solid rgba(124,178,240,.28)}
+.who.cafe{background:rgba(232,148,192,.15);color:#e8a9c9;border-color:rgba(232,148,192,.28)}
+.opt{font-size:10.5px;font-weight:500;color:var(--blue);border:1px solid rgba(124,178,240,.3);
+  padding:1px 7px;border-radius:100px;letter-spacing:.02em}
+.line2{font-size:12.5px;color:var(--tx2);display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:5px}
+.line2 .sep{width:3px;height:3px;border-radius:50%;background:var(--tx3);flex:none}
+.star{display:inline-flex;align-items:center;gap:3px;font-variant-numeric:tabular-nums}
+.star svg{width:11px;height:11px;fill:var(--amber)}
+.why{font-size:13px;color:var(--tx2);line-height:1.5;margin:0}
+.sfoot{display:flex;align-items:center;gap:14px;margin-top:9px}
+.mini{font-size:12px;color:var(--tx3);transition:.15s;display:inline-flex;align-items:center;gap:5px}
+.mini:hover{color:var(--tx)}
+.mini svg{width:12px;height:12px;fill:currentColor}
+.money{font-size:12px;color:var(--tx3);font-variant-numeric:tabular-nums;margin-left:auto}
+
+.hop{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--tx3);
+  padding:2px 0 8px 57px}
+.hop svg{width:13px;height:13px;fill:var(--tx3);flex:none}
+
+/* footer bits */
+.after{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:20px;
+  font-size:13px;color:var(--tx3)}
+.linkbtn{border:1px solid var(--line);border-radius:100px;padding:8px 15px;font-size:13px;
+  color:var(--tx2);transition:.16s}
+.linkbtn:hover{border-color:var(--line2);color:var(--tx)}
+details.blk{margin-top:16px;border:1px solid var(--line);border-radius:14px;background:var(--card);
+  padding:0 18px}
+details.blk summary{padding:15px 0;cursor:pointer;font-weight:500;font-size:14.5px;list-style:none;
+  display:flex;align-items:center;justify-content:space-between;gap:10px}
+details.blk summary::-webkit-details-marker{display:none}
+details.blk summary::after{content:"+";color:var(--tx3);font-size:19px;line-height:1}
+details.blk[open] summary::after{content:"–"}
+details.blk .inner{padding:0 0 18px}
+ol.booklist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:9px}
+ol.booklist li{font-size:13px;color:var(--tx2);line-height:1.5}
+ol.booklist b{color:var(--tx);font-weight:600}
+ol.booklist em{font-style:normal;color:var(--tx3);font-family:ui-monospace,Menlo,monospace;font-size:11.5px}
+.wl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:13px}
+.wl li{display:grid;grid-template-columns:16px 1fr;gap:11px;font-size:13.5px;color:var(--tx2);line-height:1.55}
+.wl svg{width:15px;height:15px;margin-top:3px}
+.wl b{color:var(--tx);font-weight:600}
+.keyhint{font-size:12.5px;color:var(--tx3);line-height:1.6;margin:0}
+.keyhint code{background:var(--card2);padding:2px 6px;border-radius:5px;font-size:11.5px;
+  font-family:ui-monospace,Menlo,monospace;color:var(--tx2)}
+
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,150%);background:#f7f5f2;
+  color:#1a1918;font-size:13.5px;font-weight:500;padding:12px 20px;border-radius:100px;z-index:40;
+  transition:transform .3s cubic-bezier(.2,0,0,1);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+#toast.on{transform:translate(-50%,0)}
+
+@media (max-width:940px){
+  .mod{grid-template-columns:1fr;height:auto;min-height:0}
+  .mapcol{height:290px;border-right:0;border-bottom:1px solid var(--line)}
+  .panel{overflow:visible;max-height:none}
+}
+@media (max-width:520px){
+  .wrap{padding:24px 14px 48px}
+  .panel{padding:16px}
+  .shapelab span{font-size:9px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <div class="eyebrow">Koh Samui, Thailand · 6 people</div>
+  <h1>Day-by-day route</h1>
+  <p class="subhead"><b>Wed 29 Jul – Sat 8 Aug 2026</b> · 10 nights, based at Coral Cove ·
+    <span id="tripline"></span></p>
+
+  <div class="wxhead">
+    <span class="eyebrow" style="margin:0">Weather</span>
+    <span class="wxlegend"><i class="t1"></i>Forecast<i class="t2"></i>10-day outlook<i class="t3"></i>August average</span>
+  </div>
+  <div class="wxstrip" id="wxstrip"></div>
+  <div class="eyebrow" style="margin:14px 0 6px">Pace</div>
+  <div class="shape" id="shape"></div>
+  <div class="shapelab" id="shapelab"></div>
+  <div class="shapekey">
+    <span><i style="background:#7ec98b"></i>Easy</span>
+    <span><i style="background:#a8a29b"></i>Steady</span>
+    <span><i style="background:#e8b23a"></i>Busy</span>
+    <span><i style="background:#e8836f"></i>Big day</span>
+    <span style="color:var(--tx3)">Tap a bar to jump to that day</span>
+  </div>
+
+  <div class="pills" id="pills" role="tablist" aria-label="Choose a day"></div>
+
+  <div class="mod">
+    <div class="mapcol">
+      <svg id="sketch" viewBox="0 0 460 520" preserveAspectRatio="xMidYMid meet" role="img"
+           aria-label="Simple map of the day's route"></svg>
+      <div id="gmap"></div>
+      <button class="mapswap" id="mapswap">Simple map</button>
+      <div class="mapnote" id="mapnote"></div>
+      <div class="routechip" id="routechip"></div>
+    </div>
+    <div class="panel" id="panel" role="tabpanel"></div>
+    <aside class="detail" id="detail" aria-live="polite"></aside>
+  </div>
+
+  <div class="after">
+    <a class="linkbtn" id="allLink" target="_blank" rel="noopener">Open every stop in Google Maps ↗</a>
+    <button class="linkbtn" id="copyBtn">Copy this day</button>
+    <button class="linkbtn" id="resetBtn" style="display:none">Restore dropped stops</button>
+    <span id="changed"></span>
+  </div>
+
+  <details class="blk" open>
+    <summary>Everything that needs booking</summary>
+    <div class="inner">
+      <p class="keyhint" style="margin-bottom:12px">Built from the plan — anything tagged
+        <b style="color:#e8c46a">Book ahead</b> is a table, class, treatment or boat for six that will not
+        take a walk-in. Ordered by date.</p>
+      <ol class="booklist" id="booklist"></ol>
+    </div>
+  </details>
+
+  <details class="blk">
+    <summary>Before you go — six things with deadlines</summary>
+    <div class="inner">
+      <ul class="wl">
+        <li><svg viewBox="0 0 24 24" style="fill:var(--red)"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          <span><b>Sun 26 Jul — the TDAC window opens.</b> All six in one session at tdac.immigration.go.th. It can't be filed earlier, and without it you're sent to the fallback queue at Bangkok.</span></li>
+        <li><svg viewBox="0 0 24 24" style="fill:var(--red)"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+          <span><b>29–30 Jul are dry days.</b> No alcohol sold anywhere for 48 hours — shops, 7-Elevens, standalone bars. Buy duty-free in transit: 1 L each, 6 L for the group.</span></li>
+        <li><svg viewBox="0 0 24 24" style="fill:var(--red)"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+          <span><b>The minivan can't climb your hill.</b> Agree a ring-road pickup point when you book the Koh Tao boat — not at 06:00 in the dark.</span></li>
+        <li><svg viewBox="0 0 24 24" style="fill:var(--blue)"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 15l-4-4 1.4-1.4L11 14.2l5.6-5.6L18 10l-7 7z"/></svg>
+          <span><b>Koh Nang Yuan:</b> cash only, no plastic bottles, no drones. Day visitors are gated 10:00–15:00 — a tour boat gets you in ahead of it.</span></li>
+        <li><svg viewBox="0 0 24 24" style="fill:var(--blue)"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 15l-4-4 1.4-1.4L11 14.2l5.6-5.6L18 10l-7 7z"/></svg>
+          <span><b>Walking Street is Friday only</b>, 17:00–23:00. That one fact is why Fri 7 Aug sits where it does.</span></li>
+        <li><svg viewBox="0 0 24 24" style="fill:var(--blue)"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 15l-4-4 1.4-1.4L11 14.2l5.6-5.6L18 10l-7 7z"/></svg>
+          <span><b>Sunset is 18:40</b> all trip. Scooters need an IDP with category A or your insurance is void.</span></li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="blk">
+    <summary>Where the weather numbers come from</summary>
+    <div class="inner">
+      <p class="keyhint"><b>Days 1–3 — real forecast.</b> Live model data pulled 24 July. The horizon
+        is 8 days, which reaches 31 July and no further.</p>
+      <p class="keyhint" style="margin-top:11px"><b>Days 4–8 — 10-day outlook.</b> Inside the window
+        where models retain partial skill, roughly 60–70% on general conditions in this season. Shown as
+        ranges because a single number here would be false precision.</p>
+      <p class="keyhint" style="margin-top:11px"><b>Days 9–11 — August averages.</b> Past useful
+        forecast skill, so these are climate normals (climate-data.org 1999–2019,
+        weather-and-climate.com 1990–2020). Sites advertising “30-day forecasts” are publishing
+        climatology with a forecast label — several say so in their own small print.</p>
+      <p class="keyhint" style="margin-top:11px"><b>The useful finding:</b> 1–10 August is historically
+        the <i>driest</i> stretch of the month on Samui — about 7.8–10.7 mm against 15.9 mm in the last
+        third. Your days 4–11 all sit inside it. Samui also runs drier in August than most of Thailand
+        because of its own monsoon timing: roughly 103–130 mm over 12–17 rain days, against 296 mm in
+        October. Rain here is short afternoon showers, not washouts.</p>
+      <p class="keyhint" style="margin-top:11px"><b>Rain % for days 9–11 is derived,</b> not observed:
+        12–17 rain days ÷ 31 days = 39–55%, rounded to 40–55.</p>
+      <p class="keyhint" style="margin-top:11px">Re-check on <b>30 July</b> (brings 2–6 Aug into real
+        forecast) and <b>2 August</b> (brings the Koh Tao day into range).</p>
+    </div>
+  </details>
+
+  <details class="blk">
+    <summary>About the Google Maps setup in this file</summary>
+    <div class="inner">
+      <p class="keyhint">The map is the <b>Maps JavaScript API</b> with a custom dark style, so the photo
+        markers and styling are real rather than a filter. Three things worth knowing:</p>
+      <p class="keyhint" style="margin-top:12px"><b>1. Enable one API.</b> Cloud console →
+        <i>APIs &amp; Services → Library</i> → <b>Maps JavaScript API</b> → Enable. That’s the
+        only one this file calls.</p>
+      <p class="keyhint" style="margin-top:12px"><b>2. Restrict the key to it.</b> Under
+        <i>Credentials → your key → API restrictions</i>, allow <b>Maps JavaScript API</b> only.
+        Dynamic Maps is $7 per 1,000 loads with 10,000 free every month — eleven day-tabs across six
+        people won’t come close, so expect ฿0. Restricting the key is what stops anyone lifting it
+        and spending it on paid APIs you aren’t using.</p>
+      <p class="keyhint" style="margin-top:12px"><b>3. The photos cost nothing.</b> They were fetched
+        from Google Places once and written into this file, so there are no Places API calls at runtime.
+        Place Details with photos bills at the Enterprise tier — about $20 per 1,000 with only 1,000
+        free per month — which is why fetching them live on every page view would have been the
+        expensive way to do this. Photos are by Google Maps contributors; each stop name links to its
+        listing where the credits live.</p>
+    </div>
+  </details>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const GKEY = 'AIzaSyAB42Jh_sVg1xPbkEW34xMESW014rSC57Y';   /* Maps Embed API — keep this key restricted to Maps Embed API only */
+
+/* ---------- icons ---------- */
+const I={
+gym:'M20.6 3.4L19.2 2l-2.6 2.6L18 6l2.6-2.6zM4 20.6L5.4 22 8 19.4 6.6 18 4 20.6zM7.3 5.9L5.9 7.3l1.4 1.4-2.1 2.1 1.4 1.4 2.1-2.1 4.2 4.2-2.1 2.1 1.4 1.4 2.1-2.1 1.4 1.4 1.4-1.4L7.3 5.9z',
+rental:'M18.9 6c-.2-.6-.8-1-1.4-1h-11c-.6 0-1.2.4-1.4 1L3 12v8h2v-1h14v1h2v-8l-2.1-6zM6.9 7h10.2l1.3 4H5.6l1.3-4zM6.5 16a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z',
+food:'M7 2v9a3 3 0 002 2.8V22h2v-8.2A3 3 0 0013 11V2h-1.5v7h-1V2h-1v7h-1V2H7zm9.5 0C14.6 2 13 4.2 13 7v6h2v9h2V2h-.5z',
+water:'M3 8c2 0 3-1.5 4.5-1.5S10 8 12 8s3-1.5 4.5-1.5S19 8 21 8v2c-2 0-3-1.5-4.5-1.5S14 10 12 10s-3-1.5-4.5-1.5S5 10 3 10V8zm0 6c2 0 3-1.5 4.5-1.5S10 14 12 14s3-1.5 4.5-1.5S19 14 21 14v2c-2 0-3-1.5-4.5-1.5S14 16 12 16s-3-1.5-4.5-1.5S5 16 3 16v-2z',
+beach:'M11 22V11.2A9 9 0 003 12a9 9 0 0118 0 9 9 0 00-8-.8V22h-2zM2 22h20v-1.5H2V22z',
+culture:'M12 2L3 8v2h18V8l-9-6zM5 12v7H3v2h18v-2h-2v-7h-2v7h-3v-7h-2v7H7v-7H5z',
+active:'M20.6 3.4L19.2 2l-2.6 2.6L18 6l2.6-2.6zM4 20.6L5.4 22 8 19.4 6.6 18 4 20.6zM7.3 5.9L5.9 7.3l1.4 1.4-2.1 2.1 1.4 1.4 2.1-2.1 4.2 4.2-2.1 2.1 1.4 1.4 2.1-2.1 1.4 1.4 1.4-1.4L7.3 5.9z',
+wellness:'M12 22c-4.4-3.2-7-6.4-7-10.2A4.8 4.8 0 0112 8.4a4.8 4.8 0 017 3.4c0 3.8-2.6 7-7 10.2zM12 6.8C11 4 9 2.4 6 2c.4 3 2 5 4.6 6l1.4-1.2z',
+shopping:'M6 8V6a6 6 0 0112 0v2h3v14H3V8h3zm2 0h8V6a4 4 0 00-8 0v2z',
+view:'M12 5C6 5 2 12 2 12s4 7 10 7 10-7 10-7-4-7-10-7zm0 11a4 4 0 110-8 4 4 0 010 8z',
+hike:'M3 20h18L14 6l-3.6 6.4L8 9l-5 11z',
+cafe:'M4 3h13v3h2a3 3 0 010 6h-2v3a4 4 0 01-4 4H8a4 4 0 01-4-4V3zm13 5v2h2a1 1 0 000-2h-2zM3 21h16v2H3v-2z',
+rest:'M7 13h10a3 3 0 013 3v4h-2v-2H6v2H4v-4a3 3 0 013-3zm-1-2V7a2 2 0 012-2h8a2 2 0 012 2v4h-2V7H8v4H6z',
+transit:'M18.9 6c-.2-.6-.8-1-1.4-1h-11c-.6 0-1.2.4-1.4 1L3 12v8h2v-1h14v1h2v-8l-2.1-6zM6.9 7h10.2l1.3 4H5.6l1.3-4zM6.5 16a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z',
+boat:'M4 15h16l-2.2 6H6.2L4 15zm8-13l6 11H6l6-11z',
+walk:'M13.5 5.5a2 2 0 110-4 2 2 0 010 4zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3A6.9 6.9 0 0019 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.2L5 7.7V13h2V9.2l2.8-.3z',
+star:'M12 17.3L5.8 21l1.7-7L2 9.3l7.2-.6L12 2l2.8 6.7 7.2.6-5.5 4.7 1.7 7z',
+nav:'M2 11l19-8-8 19-2-8-9-3z',
+open:'M14 3v2h3.6l-9.8 9.8 1.4 1.4L19 6.4V10h2V3h-7zM19 19H5V5h5V3H3v18h18v-7h-2v5z'};
+const CAT={food:'#e8a05f',water:'#7cb2f0',beach:'#6fcfd4',culture:'#c39ae8',active:'#7ec98b',
+ wellness:'#e894c0',shopping:'#8fb0f0',view:'#e8b23a',hike:'#7ec98b',cafe:'#e8a05f',
+ rest:'#a8a29b',transit:'#a8a29b',gym:'#7ec98b',rental:'#8fb0f0'};
+const KIND={food:'Restaurant',water:'Snorkelling',beach:'Beach',culture:'Temple',active:'Activity',
+ wellness:'Spa',shopping:'Shopping',view:'Viewpoint',hike:'Hike',cafe:'Café',rest:'Downtime',
+ transit:'Getting there',gym:'Gym',rental:'Scooter rental'};
+const WHO={gym:'Gym group',cafe:'Caf\u00e9 & spa group'};
+/* Google Places photos, fetched once at build time — no runtime API calls, no cost */
+const PHOTO={
+ 'ChIJVdZKQEzyVDARYatguC0rmQ4':'https://lh3.googleusercontent.com/place-photos/AG9NLjDy-AeCxlvlKIdgtxitUNN0PM2WOYK-i2ayfF4kE_zpH9WTh4VW0mEQTgxGiSH3Q38y8KdPcc-7UKuPp1_WHhZZ3vYX7K2SwhhMYjcLJ9GsLNBdYgkAGZ1S_PFeJW3W_2EMh8F9iJtdL_qlZA=s4800-w320-h320',
+ 'ChIJEfdXbA7xVDARfFIyIZ500K4':'https://lh3.googleusercontent.com/place-photos/AG9NLjDB15wU64jKeU5KyT7RM7UztV64EOS4gu0JuO3nsRXXtcXdxEMfpVVj4uNa3Y9FvmJ4j9JaZOH2qKva4gv1Rs-b4iPxFqG5PTsZ6tHFY7on_QnKOXzmiyX3-r7mJ-Z4Rv3QoyshbaptseEcf3silrS0kQ=s4800-w320-h320',
+ 'ChIJPzxggBDyVDARKfhbFYBsQsw':'https://lh3.googleusercontent.com/place-photos/AG9NLjCvaPWtAnnp79OFQbUnXdYwPAN1lldIxro3Lpy8wIGT3wZK13EEbRUsyDMI9rz5FAYIUX5FbFfmYap-z3BTFwcGk2K2i99j4UXF2sfrEZpC83naMIQGgdiHrQDg1o0zS-qCFowS0i0vloba=s4800-w320-h320',
+ 'ChIJHTF_t_3zVDARdRvrSWx4lgg':'https://lh3.googleusercontent.com/place-photos/AG9NLjAZnjvCU-rfDA_rKBMtzBzCoKq35-hQzYfia7A56Xjwq4yYllUB895Db11iSa85SS_4K-66VJbc9PEaAqdaWtYn4JIsgLNmHwzoQ_bGUaZkBHFKJEcIiwQaVyiv5_DW4QDS8b5-Cl33ywaYeyPjiqeWDQ=s4800-w320-h320',
+ 'ChIJkwsZ0bLzVDARvzTYYt8iqPU':'https://lh3.googleusercontent.com/place-photos/AG9NLjByco0uGy_Os1Kuv8lMo-9pkExntgU49Jq8BcT1zxqyat-w_pXUCWPciVp6JemM9TX_1GJK5zNvCI13VJnibNPYrQdt9Sveeiy6O7lGskuQOMwc5Gh93SMVKcaufPokNlouBkwfgM_Roo9dWgIkt40UDQ=s4800-w320-h320',
+ 'ChIJ2b1fvxbyVDARuFUOI_6bs_k':'https://lh3.googleusercontent.com/place-photos/AG9NLjByuCRRcLOEm_gBckn8CBZfR6vnOhe9PRNuEgaut8ufUAxviaOGhTPXoFTbk9PhA3bXoNy8DaVt7-2nrbV7n-AeGgRd3CRyf9yAXGN4wa0rOf0-5Pmc4XPvatGvgI_nq28mHh8fDapWC9lGpp4=s4800-w320-h320',
+ 'ChIJ5Yp0adPxVDARYLnpmXOASvQ':'https://lh3.googleusercontent.com/place-photos/AG9NLjA-EwzuqBU9wLANGM4ntw6uy06bcaVJdqcH_9eLZeEtQstdvQJADPKtGDN1PxHuiW9l5MI9qAY1T1viGlQlMknSjpUSrI0irQj4xhftsFr5EeibET7rBHW6TOD7CED267S1CRRePadZajvH4-p8mKboJA=s4800-w320-h320',
+ 'ChIJjZOue5nxVDARdhdLMJG0WpU':'https://lh3.googleusercontent.com/place-photos/AG9NLjA401p_6UajsLHXQ5l08eAEwiBTlPkz-86ir89ySYO76uhoSlnWnZcSiLqE2CLThqEQz8_o3Zv5UCxKvyl6kMB53VJbbc9qUz4ZzJw_h9ejDKT-mYAfEe4tEDmhS1_BwUHh7B_7LfBSo_bTCAuOnjTu=s4800-w320-h320',
+ 'ChIJAVQo7czxVDARRinjM7ou6Uo':'https://lh3.googleusercontent.com/place-photos/AG9NLjCcslqZazIOb4jqceyg-VkVrwGavI9Krj6zVIdb9EYkblDOdG9RaHmIopOiAYU3Z7SJRIBKrbQlkiEVWeFHuZ58Yp7F_iF2dIpONHgBY9UAJ3LxEYaxYc4D-ZvK1qhZiNjdu5B_TQ3O3UFH=s4800-w320-h320',
+ 'ChIJ6yNDRszzVDARBy_frAHeNmI':'https://lh3.googleusercontent.com/place-photos/AG9NLjAsY7DoqLyvw4tYBNFZ8_jyUCxWBq5hqhr4efbYO-hnjVzmvMDvID3xKfJD2rXJSBStjrxKXSj8vwU6D6qZrxiQYJC4Vd12vWEwgGBCCL4lxmo7vOH4nUSZ0Fqky9Aje0pZT0PUqnrWCsPI8gPAc7k2wQ=s4800-w320-h320',
+ 'ChIJS6N3bwjzVDARk3bkr_U08Cs':'https://lh3.googleusercontent.com/place-photos/AG9NLjBbIZcwU01jIHWQbixk6QcQINfrEn3uK8xs5MZq-g7yF4arvwaclxifSEpWUueWSs5zLronRvILO3c4sBhUEoYN2sYkTrbWwGgHhN23Oi33OUJZT-UouU0C5O1BjsSolj01zN3gzn0HzR-9N26zEYIZ1w=s4800-w320-h320',
+ 'ChIJnV9jBAjzVDARI3eihsg0evg':'https://lh3.googleusercontent.com/place-photos/AG9NLjC8pXsBZm-GwUCMuw9zuBwnpo3vDRntpRB4YTXEEiE3nCjdW2CNBhpZPDX3LttlBqTnCnXWVbn35cWoGDC55dFhR7PP7HVK9C3XoMtXHOH9uaVQ_g5fkgzg3yMa2kQbuIe4Y9nktck4OjcvknE=s4800-w320-h320',
+ 'ChIJEUti54LzVDAR_QcBNK-lTQw':'https://lh3.googleusercontent.com/place-photos/AG9NLjCN-hojJZyw97AJIvGsDhpiaKrDg-m9OJ4eUSaw1UvgLANRIGOGpdreEWV84U0nDRadyhfwxgu9R3V9WVNw-4kpItTocC9XnwKVYCRPPfCu9u18XuX0Nte2fSSGJIz4IhNpebnhVo13bQsDgw=s4800-w320-h320',
+ 'ChIJs4JYrs3zVDAR8YtHyZlFJ_M':'https://lh3.googleusercontent.com/place-photos/AG9NLjBmaVYc3nO8oORMVSctp1q_cXjAYDOLILlPFyPhtd5YYXgr60OMKwmPMAVcRrG64yZ3lriyLFYoQYCMoGGrzjaavrOIJ9znf7COyn6uYFSN1iWP6LrQ9BIxijVwu5DiiH1q9v7Pr_6P1sTycVO4m_QoHA=s4800-w320-h320',
+ 'ChIJ3372BPnzVDARcS8YSmZEUjs':'https://lh3.googleusercontent.com/place-photos/AG9NLjBxWKb0aQP6Hn162kjGpgQvYFzkUD231Ayc0ezNS06e9G_mNFKUvE0CErfAkrPNS_Lhsf-3esydJ0iVrhzRoG49JVj6PiofpFh5nQ1-hZFeyMV-Qws5NTHYf0FgwY6AFWX_d7WkFMGTu-q03TY=s4800-w320-h320',
+ 'ChIJV9evjqX1VDARV8FRv42LqQ4':'https://lh3.googleusercontent.com/place-photos/AG9NLjChhsI7IzxV_UYmx_PLGF4O-E0mHsUoNBon4j-xgW65Zi3W1wH5d1FppBhW-Wv1sB45krl3za1gVNyeeZKysRgKB3OjDuu7aueazE6bi_chDpnBV0UN-jmu2UNvRLiNKNcDHWaJhibNMjhV1UyvpH1tUg=s4800-w320-h320',
+ 'ChIJKTllzUDxVDAR9KG_ySo42fw':'https://lh3.googleusercontent.com/place-photos/AG9NLjAkaK6CqLnbBQmdY3yZJCLhhLWtiRRGLbl598ue_ZBFCtQJmTQfjHf81BntKDEgCl0i5KoYmykRW7agqXmVAiFQESQVMG3Pat-kn5s1wLGBOVSR80Xa_hLSuzUmeN-H18hs1G1e7Ma2QPuSyNeDuuc2Gw=s4800-w320-h320',
+ 'ChIJjTLHxuTxVDARn69vd4mqU_Q':'https://lh3.googleusercontent.com/place-photos/AG9NLjCVLj_6tNEWbdEbIj3I_0IJey27mm_85CppU8F7W27zqlBVyGLAJH4kRdTdCy157Q8ZX7pIgQQuOD8H4aeo15UGssKF_5nNmqroKp41KpO7e9tp4_Wpg_QNYoiw-H1zSDXAfXUcDmDTVAqSj3_OOXJehw=s4800-w320-h320',
+ 'ChIJQc1OzAjwVDARv0towXonUM8':'https://lh3.googleusercontent.com/place-photos/AG9NLjBCbWMwo6TaLENcYF3TEA7UF_75dSRth3s00TAMgdIFf92xUvyIe_xCdiBzNFXMJaSG5tBn1wqoPTviEoCErotm4SBu4m3JsKumn5TkbRyV4eScZLqm1n1YX53T6x93LlZf2jw2R9FicCiAdQ4QPLkpJg=s4800-w320-h320',
+ 'ChIJGycOnAzwVDAR4IZEMPSKJds':'https://lh3.googleusercontent.com/place-photos/AG9NLjBdVJz1YIPsT7QVZOCJ3D4wTcCJjQ-0oIXl4Pv6z25hgAqPwZhL4Juy6k5iuDXd2mthB5EMMMeopBdwlHl3HB3HPgcD0TKwz4QrZ0EWxYon8FTIKa5ate1tGzaOuhI0dzLhOVFD7Jo4EEKmHKo=s4800-w320-h320',
+ 'ChIJ53RkjA3wVDAR5ZZ15jCpHME':'https://lh3.googleusercontent.com/place-photos/AG9NLjBb8ElBn2QJQ4oyCpPs7NSy54NPdsShn7U3Vy2mXLD5Pa84v279oN-ioQmvJYragqanz8gVlW7BVuHuKkq8wfT-XgWySHjK7GHYCxUHcBUoJ0p4Ji1hLuQUxHZo1wYe45YqOBo1gT8dCg-qibCTyZ_peg=s4800-w320-h320',
+ 'ChIJD-GiKbnxVDAR3w9zLC1NWww':'https://lh3.googleusercontent.com/place-photos/AG9NLjCVlpjat081uivOGGIQy0wgjYkPcobJ_g5gjWYN7I60xe34wQq3jfmmiKRbKedBtSI3-CYJDgqzcUgKRueoIDqXWUy9COrZwgKm7TjeMCKAnJol57f_HRIcx2CQ2YDkibHcxaEUYUz525R5Z8s=s4800-w320-h320',
+ 'ChIJX5anyo3wVDARupr7atqyDZ4':'https://lh3.googleusercontent.com/place-photos/AG9NLjCug3jsQanbqoGZFMf5K4O6qTiq5XeIIR2jiur2rMu25KRmt70y5xwxEIEHqHPdWhISg_jAloiThFVhnTjoEo0DqUDL8KHeCWYbfO5C_l6JcmStWzv_CBoNJekGzqnmOGQI9NVVcmqTiiwl6dAOFEf32g=s4800-w320-h320',
+ 'ChIJZ9oijXzxVDARG5WY_EkJcvM':'https://lh3.googleusercontent.com/place-photos/AG9NLjBqjJNa_7pwaLEhlLs2kNS1a6MBIjBrt0Rpf66qBORbPLLzx2Ebk-MB7jzj8qiJLJemcrXfx0Yc1a_A5p94JIR5kTIIQFpeoJz7SttSmOaYeM74gkiC1FV0zKaXMAHD2T89ymIiYTyd3fgit9VYo0la=s4800-w320-h320',
+ 'ChIJwzKD0g7zVDARb_KqEsIvPK8':'https://lh3.googleusercontent.com/place-photos/AG9NLjDmB1UEB10twKNgRQvZt0UijKj5xIeYN6tswweX94KEW00GaJPBwqlBSnficjywFNiafvoBnIX6FIVC_n-lFi588wMAaycWJ6ACDJ07i09NRumbYCQ0_5ZYt1otV1U0g4SxaMja3jKQFLfbvSg=s4800-w320-h320',
+ 'ChIJc4--IJDzVDARIbGsjuwSKX4':'https://lh3.googleusercontent.com/place-photos/AG9NLjBzDYqjMEOa1qOqmbLc18sA0SZs7YW-YJxGFlegCjHRbPP_rIVg9pBUPE7qDzgzKTDI7F1RzECsB9oe_Qh9Ihdp7Gg0hl2NsCqJ3jvlRkgcSkDRRICiGbLO37-eoxIWB8e9XddO6HrhLlI89Ts=s4800-w320-h320',
+ 'ChIJVTRjCo3zVDAR5uKpvIWpq9Q':'https://lh3.googleusercontent.com/place-photos/AG9NLjCn9kNvjy05rJUPoNcp-6L0qeTJbi_belBAfD0E_JRTHNmNJZ-MsHFpbNyCodJPftIDSBICOTt-eJUn5lid3M14gw5qM2F_ASW0X50dqNbDblJZmNIMuGpzHCwLK8kh2_GZgU4evMNS38inp-rZJCYUnA=s4800-w320-h320',
+ 'ChIJSVye4lTxVDARUQBJwUi_Wc4':'https://lh3.googleusercontent.com/place-photos/AG9NLjAsBxX0IY5yinxN_-6xNmK7u7hJ3JSOGmCb68geQn5nWY0rzbcdKEuoyRHSw7inLpe9hIphUmumqR1UA9VNNiWRgRYT3-QXf0cIEUguThQdkcReUkHX_U1U97mWLVAh2UwbgrLCt0p7N2bTxWYuIdi3=s4800-w320-h320',
+ 'ChIJNfxZx_HzVDARVQ3sFgkv81Y':'https://lh3.googleusercontent.com/place-photos/AG9NLjD4UtktsCij6DQhowXvOwtxKbVuOB-Raq0QUqRmy3gsVahKhMSfrXyIdaC51dNdr6NKQFG4cEsmkDuFonZ0LqR7qadjCnvz_4DGmI56FhuW4FA1XrLtjNeG-l16yLdg5gnUkCxlYZnDfPIqAjeoBkZlQw=s4800-w320-h320',
+ 'ChIJ6ZzAaqjzVDARMPeKuwUwsEI':'https://lh3.googleusercontent.com/place-photos/AG9NLjBHMir83wxqTzT9p_D4znhG1TF6qr_nmxgXW69FZ9K6h75p_g6w1NHTf49k-iQ3oLckh51iK17293lxgWfW1u0F4Ar8epgEjIhZFFe8YbLNd-jqs8cfVeAoIbtN8_Vz0KUYaaWJVzdFZTisCg=s4800-w320-h320',
+ 'ChIJkwPzQMrxVDAR0Gf_TiFAd-M':'https://lh3.googleusercontent.com/place-photos/AG9NLjC1fo_eYRZYFZ8LlgCRQ5W1Ev3IRaoH6nlHFLDM_qYy1SstLZKMzX5PXTCNpzHRxufGZ9m84GgPKvlTgXdGglqvQpMVIXPfPUqIV1aMjaqp2F3CLQPOKO-5TcC9YcLIrsk3GLpXz2zUnnKSZv4=s4800-w320-h320',
+ 'ChIJT4-rV9v0VDARYNYhxPg9n_M':'https://lh3.googleusercontent.com/place-photos/AG9NLjCDjIQKlCPgjfDBWp1hcLBAgZqxVcDMdZBMWD4H_mYIaTDmTI_aTwTVFyCaTuYlZk6-wazDN9oRysqXcaVK00glPHJJTkZwUb8XWTXir1AxAGSwj_k9oSa6z7NbkobiabatPdXw071txYGzAHE=s4800-w320-h320',
+ 'ChIJZ8kZxmiLVDARGk_11iYJi-E':'https://lh3.googleusercontent.com/place-photos/AG9NLjDOdw083h7ukhjLqCNM1IdA3cOD_s7noi6qqALQ5Pp6pVV_jjR-GGKotddoR7jHfjwpGm6srFlfegOV0p5OkDxLXwRjhinxlZ8kVvthZeMxEqWgzTR6BuraWLT-PcwnddY6W9xseO_4W0nLkd8=s4800-w320-h320',
+ 'ChIJq8vfey7xVDARFhukg_9iFzw':'https://lh3.googleusercontent.com/place-photos/AG9NLjDoV3nvCbmw1EebBa3_eVQdJj40L7NmaWqE7Qbi7uRTvDyp6MXphQBCJtL1VVJWfX5iafSv8tW2lGZAldeF_ZoWnT-iAfBWyV7AnlhVXjQ2VnF9a3AAMtBQJLaSu0ry1VNXmnDxSMlCL_F-q_FtBPmx_Q=s4800-w320-h320',
+ 'ChIJDQM02wLxVDARUK7Sc7UyhI4':'https://lh3.googleusercontent.com/place-photos/AG9NLjCs65WQeQJbhqhmVn8dOPGIVqFrxCR-BWAl6au0Hn8eageVmCMaSrAYfwDWJalYp6WOUIvQGbuuUIWG95-qZcJBlHG3kURw9frTzMckSom1Icx8ciEORmJwbBBWKcVMRUGtwRh2FUgN8eEdlYM=s4800-w320-h320',
+ 'ChIJV26e34_zVDARjYEL6vUY3hU':'https://lh3.googleusercontent.com/place-photos/AG9NLjB7J_Q_BqeBCD_ATwuADxmPBU_pNfqg8RDcN_debq_dK00o8JuNE2BEYw4SouTlICLv_wlsl53aTOuz4_7mh0odPW9kKpe8UXxEu1hpwoEr3eorYV6evEQuy2T4976kWILCq9a0hE8TPRw2llc=s4800-w320-h320',
+ 'ChIJ31ArK7DzVDARlzYsISyrGrg':'https://lh3.googleusercontent.com/place-photos/AG9NLjBsb84DW9visgsqIgCVWX8PfN1HMTEMibw5CZ9Zy7YS5gmmNezNstzwLBH2JfW_OTnaLdX7qofFj7dM0yr2HiQ9PYHPMn7Vc_aWC4LXyq4HrCmUXPlXDhPbjJXYbCIq5SGodQ3eeevpeHwSRH1GHJL-=s4800-w320-h320',
+ 'ChIJBSwm38_xVDARqkktVMIJd38':'https://lh3.googleusercontent.com/place-photos/AG9NLjAxkHCXG5shXkylG88nmnS1yQQuduIm6_xtJqEDywZ9eTZvZlXvgAMI8XLmoqx5A7Gi6YODkxc_C9Jr_QW6-k-9g4erUAjdmf6beV3bMXAMedB16Ptt7DtZWg8qjMB1s4vu1-WPBr8U2lCdY9Oi-JrZ2Q=s4800-w320-h320',
+ 'ChIJibfcFPrzVDARpcV7xHc4EeY':'https://lh3.googleusercontent.com/place-photos/AG9NLjC1oulO1lTkmFh1DwwBgvFZD_vKnEIMpNE-cgw5OmK3-eyAAbHQXoVKx_wsghewXmybG7Nq7fuCQhGzypr98ADtX5BBAz4_YK6XzWz6k266AzgY0hRn2WMX2FgXc4MqeevhRcWNSMxQiBIFwo6hXw8IDA=s4800-w320-h320',
+ 'ChIJMbUErB3xVDAR7cGYnrV-j3Q':'https://lh3.googleusercontent.com/place-photos/AG9NLjBduYWpVZ3iAhAO74Drpw1eCT5tS1-mcZ2a9SHZTSrY0deUSyXwRjW__Ei2KUKKLyiTpnVDfPJhwxF4psoO8MS7M4Q0YvlYGBnh0SwZuOzqkOiyInCI-_LYQyhXvC65UcZ5JD7jkRZAPYNOnhkRagau3g=s4800-w320-h320',
+ 'ChIJi_MqvFPyVDARyZQrKj0jYtw':'https://lh3.googleusercontent.com/place-photos/AG9NLjBPF_r-In80qK5eZdalVKh6G__c5lJ1C0oE7KyHt_C0wGrm6cl9c1hTX9cbBw1IAzeJbY0-MfiYRhnpO25Hy0210RdM13LXKlZ9zARhWXaKwvZxV5TQv_SPqq4yzTA1jIPgct0uFZDO8mZ9=s4800-w320-h320',
+ 'ChIJm8-sjgjzVDARwV4VrZrRJv4':'https://lh3.googleusercontent.com/place-photos/AG9NLjAYy0kkyr7y_eli9jx5HlHytqKszKpmE-g6Up_JcXB_NXIPYJ5Ryo0a-d6TBnKml9pZS5_j_C5_3NOCvbSLojtHeuardtnQIf3oRXy9wmfaqr8HqbgUz4jK7RDQziZIyQPl1Nl7y511agNzFJA=s4800-w320-h320',
+ 'ChIJO8c-BqzzVDARxcZP0o6iCws':'https://lh3.googleusercontent.com/place-photos/AG9NLjC8P1-seHoGnN0wuR4es_heo13OnMrM18PA01A15S7wTIdUqFCC5xL80muhQXdZeXGshZq199XOPgp4sm-0uo2ESZyiMHcfiWlKt1RoN4pslVDpqm76SKA_jbBL6mgDTPY3DiBpyskQPsyYjccjSLUx=s4800-w320-h320',
+ 'ChIJtxhNQDnwVDAR8DlfC70jAg8':'https://lh3.googleusercontent.com/place-photos/AG9NLjBwamCShfltrtWK7RHX_dMKnLdinwbbJDZR324LktdgKfWrBF1DEDmPYcrJiUC6GkmvIbLABiYQyopV-u0zzvMuyrBbVeZjrg252hXmxwXHynV0dYGAhUbBP5zmT3J7w6du1sOx9rmvY5pr-hZc2IyIPQ=s4800-w320-h320',
+ 'ChIJ3VZjMsvxVDARv2v4mdy6xHA':'https://lh3.googleusercontent.com/place-photos/AG9NLjCndEKe-zyVoJVYFHCcPiRYMWYeMUe16gLq3vOM1MYZGtSFcflzZk8M7oZ8OOH9N1wzsEV9iABYVM6ntTzOZQOZkE_OWgJx8N_eBDVoBX4yPknWINU9dhBy0zkpnROYLc5UNwWHX4vxnxvlEA=s4800-w320-h320',
+ 'ChIJi44-Cb_xVDAR3HBn-sXIoho':'https://lh3.googleusercontent.com/place-photos/AG9NLjDdA8KKj5XS4HST6_xWyjFCoVWUE08M7vklYb7G-bEHzeRKsJ0C1odOhfeTEmnFC8A9V0Ktd_SgWgKbLiiNsj1jSI9vdUk0NCNvPpTCtomwwCMI5j-oo6smqzYboiOOp8ab7YGDH1vifvqW=s4800-w320-h320',
+ 'ChIJEU_FMP7vVDARQzq1TzjsT0w':'https://lh3.googleusercontent.com/place-photos/AG9NLjBIHNjgJpZdhzGyZDEnrlVGWo8ON05Iznhu00pKPxk-cUKG1xF9TBmqwKgPbwRrOlieD2uWQU5wn3ZqQDSFyCR0EQKwdTs1Zp9arBcILNwfsltPBT9fqBWamo4iNPpYjlODESxSKReJTBVB2_wSne_zFQ=s4800-w320-h320',
+ 'ChIJAfusWELzVDARf4OIfVcPtpk':'https://lh3.googleusercontent.com/place-photos/AG9NLjAjs9vgLFGMNo5STz4Bx7lXf9ajEeQsLTS8g6p663zjMfJLZt4T7Df--Vto9tKu2U9_aFFo-vbYPNB1rjzcw0dSSKU_r_ZdZI5jhkFHEMb1ZDjjD7UjNF8hCBGQS1lYHwOp_vgaoa6LLER9Mdb6RPc5=s4800-w320-h320',
+ 'ChIJMTP32lKfVTARedHNqkVkRW0':'https://lh3.googleusercontent.com/place-photos/AG9NLjCKfnvcll6boswucOcwWfIO85u70cUfZUizOBque5xXeMymWuTW7C23aYuo9XYPUM8dq1jwM0aB1IpAk5NpcGnsKHYNf9BSlS6Hzjy-kaQ-fEY6S_8kItt_ObBzd5mzojsJ63WaI0UQtf7Nwg=s4800-w320-h320',
+ 'ChIJVy3G7r2hVTARPkrr89uNQF0':'https://lh3.googleusercontent.com/place-photos/AG9NLjBNXVOPgCYYn1Fp0vtmWn2weZ9QhcxwUv-8Ak4gzfKFWI6YzLAfuMUlrFXT760O_Bvxne8xLAKuZkZYY0762XWm0Xl-TnQUkEVfeGIlyW_SslkY-zFEqNMu4tWOLi_n66QuFxA7J5ZvWKHiHgk=s4800-w320-h320',
+ 'ChIJyffD3WefVTARonhgX__oMM4':'https://lh3.googleusercontent.com/place-photos/AG9NLjAGATKzAocGTy7LG_jHAX3qIJ4QwyNVFnkMpMVIGablKO0dQ8qzdgxqTOYuVctVnNTmNCWpheILOCs9n0weCWb2TaV1-OyLFakFbnNp5rrH6ngxoIMsjhhZjDnxxMzVkt5rILJdfPOdJ5ZbS7Cm9QUD=s4800-w320-h320',
+ 'ChIJLSteRPxOVDARv0oeDXhky8c':'https://lh3.googleusercontent.com/place-photos/AG9NLjDKoejaBHMsLJbls4ujoGuJBobtmmt7gl99X5jU9rI7264MNuTbcRBr_GEiaQSKfD4g0gGt9XKiAOgLmc0X56ZmDcJbSA6lY0fAQooA90t0yNfDdEOpo6SWZPcIRmDhFGw1K-QSE0UrtZ1wF_A=s4800-w320-h320',
+ 'ChIJ80US8pJOVDAR4neTPpbKkME':'https://lh3.googleusercontent.com/place-photos/AG9NLjB-zICk2_aPbUcIe3hp5ZoOS38lRHAKJtuDrP5PzdXU6BnPNrDXMqR2Byov5ORRcTGM3CIt2X5t_WYYsrigOQsbf28LMBzuPTHNJk8gHz5driDeJRIi_ArJgYBEUvV_2Ge4gGxaqsi_-NqtXg=s4800-w320-h320',
+ 'ChIJV5GO4GzzVDAR_AXApJv9a7M':'https://lh3.googleusercontent.com/place-photos/AG9NLjAI69c42biSx3lJczkJmUV1SwFw3rTuDK4Kee6jVHdtHARf_m8w0EVRnFO8szFSl3VVF_T88mqPOZ7wGeV6WoKQdU-7ZLb3cBdA4Gb86Tuw7YanMu2YWyZ5W4VqtdZILF_ET4H-KInp8POyUYg=s4800-w320-h320',
+ 'ChIJ4eKuCdbzVDARMLanyXhzqL8':'https://lh3.googleusercontent.com/place-photos/AG9NLjCmNWqk5B5fF243xsXH3cGspxCNgveJ2x_LQZoltSM6_H6Qj0rix0opipvTxDTyWvXq3Bh-UOLTuQ0U4qT09hoUFHlPSF6DtUlgg9iV_Xcg2FjKQW6_Jbak_njFLKHy2p5n44otRw78La95KMA=s4800-w320-h320',
+ 'ChIJkQBMlWfzVDARcdDXF9nmVFQ':'https://lh3.googleusercontent.com/place-photos/AG9NLjCiSKy_TI_VK24DAK8bg9g81ckjVbmtcDgx85a0yN9SVdNx9fGxkDYFrC-bTMN6Za3sobjse9U1wX9XbzMwFyRtSesLiMvwHBbgR-kyJItque8jnMehiYHWA4HIjZHoQ--RM3r90O3xyk_Vn1o=s4800-w320-h320'
+};
+const photoOf=s=>s.pid?(PHOTO[s.pid]||''):'';
+
+const WT={rest:.4,wellness:.4,beach:.5,food:.6,cafe:.7,shopping:.75,view:.9,culture:1,water:1.1,
+ active:1.1,hike:1.3,transit:1,gym:1.15,rental:.4};
+
+/* ---------- the trip ---------- */
+const FX=0.64, VILLA='9.48847,100.06142';
+const D=[
+{lab:'Day 1',date:'Wed 29 Jul',iso:'2026-07-29',ttl:'Land & settle',gist:'Land, take the scooters at the villa, then eat ten minutes down the road. Nothing else \u2014 you\u2019ll have been travelling for 24 hours.',
+ flags:[],
+ stops:[
+ {t:'16:30',d:0.75,n:'Samui airport (USM)',pid:'ChIJtxhNQDnwVDAR8DlfC70jAg8',q:'Samui International Airport',k:'transit',lat:9.5479,lng:100.0623,c:0,
+  why:'Open-air terminal of thatched pavilions and tropical gardens rather than concourses. Small, calm and quick to clear.',hop:{m:'car',km:11,min:30}},
+ {t:'17:15',d:1.5,n:'Staylar Seaview Pool Villa',k:'rest',lat:9.4885464,lng:100.0614014,c:0,pid:'ChIJvc5JKh7yVDAR_qOkRxJA6pI',
+  why:'Your base for ten nights: private pool villa on the Coral Cove headland, midway between Chaweng and Lamai.',hop:{m:'car',km:4,min:10}},
+ {t:'19:30',d:1.5,n:'Imchai Thai Food',tel:'+66 81 266 5526',k:'food',lat:9.4719768,lng:100.0557505,c:320,r:[4.8,1576],pid:'ChIJVdZKQEzyVDARYatguC0rmQ4',
+  why:'Family-run Thai kitchen on the Lamai road. Huge portions, low prices \u2014 around \u0e3f320 for three dishes.'}]},
+
+{lab:'Day 2',date:'Thu 30 Jul',iso:'2026-07-30',ttl:'Doorstep reset',gist:'Nothing today is further than ten minutes from the villa. Snorkel, swim, massage, sunset. This is the jet-lag day on purpose.',
+ flags:[['warn','Dry day two of two.']],
+ stops:[
+ {t:'07:45',d:.25,n:'Scooters arrive \u2014 CHANG Rentals',res:1,k:'rental',lat:9.4885464,lng:100.0614014,c:0,r:[5,723],pid:'ChIJZ9oijXzxVDARG5WY_EkJcvM',tel:'+66 87 276 5927',
+  why:'Three bikes delivered to the villa. No passport held, cash deposit only, and helmets in good condition.'},
+ {t:'08:00',d:2.5,n:'Coral Cove Beach',k:'water',lat:9.4905625,lng:100.0612656,c:150,r:[4.4,1718],pid:'ChIJEfdXbA7xVDARfFIyIZ500K4',
+  why:'Small rocky cove directly below the villa with live coral and dense fish. Flattest before 10:00. Masks on site, cash only.',hop:{m:'car',km:2,min:5}},
+ {t:'11:00',d:3,n:'Silver Beach',tel:'+66 77 448 542',k:'beach',lat:9.4777557,lng:100.0666606,c:500,r:[4.2,2833],pid:'ChIJPzxggBDyVDARKfhbFYBsQsw',
+  why:'Sheltered white-sand bay between two headlands, the best swimming near you. Paddleboards for hire; sunbeds about \u0e3f500 a pair.',hop:{m:'car',km:3,min:8}},
+ {t:'14:30',d:0.75,n:'Hin Ta & Hin Yai',k:'view',lat:9.4521891,lng:100.0395383,c:0,r:[4.2,11082],pid:'ChIJi_MqvFPyVDARyZQrKj0jYtw',
+  why:'Two weathered boulders on the shoreline, named Grandfather and Grandmother for reasons the plaque explains. Free, twenty minutes.',hop:{m:'car',km:2,min:6}},
+ {t:'15:30',d:0.75,n:'Red Temple (Wat Ratchathammaram)',k:'culture',lat:9.4511477,lng:100.0308894,c:0,r:[4.6,2430],pid:'ChIJO8c-BqzzVDARxcZP0o6iCws',
+  why:'Deep red sandstone carvings on a cliff above the sea. Quiet, free, and unlike any other temple on the island. Closes 17:00.',hop:{m:'car',km:4,min:11}},
+ {t:'17:00',d:1.5,n:'Nakee Thai Massage',res:1,tel:'+66 61 990 6683',k:'wellness',lat:9.4714865,lng:100.0545024,c:600,r:[4.9,1487],pid:'ChIJHTF_t_3zVDARdRvrSWx4lgg',
+  why:'Long-established Lamai massage house, 4.9 across nearly 1,500 reviews. Traditional Thai or oil, 60 or 90 minutes.',hop:{m:'car',km:3,min:10}},
+ {t:'19:15',d:1.5,n:'Kawin\u2019s Kitchen',tel:'+66 86 444 9226',k:'food',lat:9.4735341,lng:100.0622251,c:450,r:[4.8,1692],pid:'ChIJ2b1fvxbyVDARuFUOI_6bs_k',
+  why:'Open-sided Thai kitchen in Lamai with a properly marked vegan menu. The Penang curry and chilli tofu are the standouts.'}]},
+
+{lab:'Day 3',date:'Fri 31 Jul',iso:'2026-07-31',ttl:'Elephants & the north-east',gist:'A genuine sanctuary in the morning, a quiet beach at lunch, two temples in the good light, Italian on the beach at night. Everything within five kilometres.',
+ flags:[['tip','Wat Plai Laem before Big Buddha \u2014 it\u2019s the better temple and far less crowded.']],
+ stops:[
+ {t:'09:00',d:3,n:'Samui Elephant Haven',res:1,tel:'+66 95 628 6160',k:'active',lat:9.5438745,lng:100.0255607,c:3000,r:[4.9,1578],pid:'ChIJKTllzUDxVDAR9KG_ySo42fw',
+  why:'Rescue sanctuary in the Bophut hills. No riding and no bathing \u2014 you mix the food and feed from a distance. Three hours, transfer included.',hop:{m:'car',km:4,min:12}},
+ {t:'13:00',d:1.25,n:'Parroty Cafe, Bang Rak',tel:'+66 83 269 5541',k:'cafe',lat:9.5600895,lng:100.0428528,c:400,r:[4.9,167],pid:'ChIJjTLHxuTxVDARn69vd4mqU_Q',
+  why:'Beachfront caf\u00e9 opposite the sand at Bang Rak. Smoothie bowls, matcha, avocado toast and a resident dog. Open till 18:00.',hop:{m:'car',km:3,min:10}},
+ {t:'14:30',d:1,n:'Wat Plai Laem',tel:'+66 93 980 1366',k:'culture',lat:9.5712837,lng:100.0672883,c:0,r:[4.7,8227],pid:'ChIJQc1OzAjwVDARv0towXonUM8',
+  why:'Eighteen-armed Guanyin rising out of a lake, with turtles and protected fish you can feed. Free, and best in late light.',hop:{m:'car',km:2,min:7}},
+ {t:'15:45',d:0.75,n:'Big Buddha',k:'culture',lat:9.5707832,lng:100.0597982,c:0,r:[4.5,11206],pid:'ChIJGycOnAzwVDAR4IZEMPSKJds',
+  why:'Twelve-metre gold Buddha on a causeway islet, up a flight of steps with sea views from the top. Free, closes 18:30.',hop:{m:'car',km:2,min:7}},
+ {t:'19:30',d:2,n:'Salefino',res:1,tel:'+66 91 825 2190',k:'food',lat:9.5658013,lng:100.0621903,c:2200,r:[4.8,484],pid:'ChIJ53RkjA3wVDAR5ZZ15jCpHME',
+  why:'Beachfront Italian at Bangrak with a serious wine list. The busiata with rock lobster is the dish. Closed Sundays.',hop:{m:'car',km:14,min:35}},
+]},
+
+{lab:'Day 4',date:'Sat 1 Aug',iso:'2026-08-01',ttl:'Train, then the pigs',gist:'Gym and pilates first thing, back to the villa to shower, then a longtail out to Pig Island. Home by mid-afternoon with the rest of the day your own.',
+ flags:[],
+ stops:[
+ {t:'08:00',d:1.5,n:'Legend X Fitness',who:'gym',k:'gym',lat:9.5594833,lng:100.0440304,c:250,r:[5,677],pid:'ChIJMbUErB3xVDAR7cGYnrV-j3Q',tel:'+66 62 151 5419',
+  why:'Last session, and two kilometres from the airport.',hop:{m:'car',km:8,min:22}},
+ {t:'08:00',d:1.25,n:'Isla Reformer Pilates',who:'cafe',res:1,tel:'+66 80 502 8195',k:'active',lat:9.5358227,lng:100.0487746,c:900,r:[4.9,178],pid:'ChIJ5Yp0adPxVDARYLnpmXOASvQ',
+  why:'Reformer studio on the third floor above a matcha caf\u00e9 in Chaweng. Small classes, kit and grip socks provided.',hop:{m:'car',km:6,min:16}},
+ {t:'10:00',d:0.75,n:'Back to the villa',k:'rest',lat:9.48847,lng:100.06142,c:0,pid:'ChIJ85Uh27_xVDARN0KLTIhKrgU',
+  why:'Shower, drop the kit, and let the morning settle before the day proper starts.',hop:{m:'car',km:25,min:45}},
+ {t:'11:30',d:0.5,n:'Thong Krut Pier',k:'transit',lat:9.4201442,lng:99.9568963,c:0,r:[4.4,1388],pid:'ChIJT4-rV9v0VDARYNYhxPg9n_M',tel:'+66 88 452 4433',
+  why:'Small working pier on the south-west tip, lined with local caf\u00e9s. Longtails to the islands are booked at the desk here.',hop:{m:'boat',km:6,min:25}},
+ {t:'12:30',d:2.5,n:'Pig Island (Koh Madsum)',res:1,k:'water',lat:9.3766257,lng:99.9783717,c:450,r:[4.1,837],pid:'ChIJZ8kZxmiLVDARGk_11iYJi-E',tel:'+66 81 894 0581',
+  why:'White-sand islet where domestic pigs roam the beach, with a snorkel stop at Koh Tan on the way back. \u0e3f50 cash to land. The pigs bite \u2014 feed at arm\u2019s length.',hop:{m:'boat',km:6,min:25}},
+]},
+
+{lab:'Day 5',date:'Sun 2 Aug',iso:'2026-08-02',ttl:'South loop',gist:'Six stops in one clean arc down the south coast, finishing with the best sunset on the island. Hire a van and driver for this one.',
+ flags:[['warn','Get a driver. Taling Ngam is 55 minutes of dark wet-season ring road after sunset drinks, six stops is a lot of stopping and starting on scooters, and this way everyone can drink. Tarnim Magic Garden is cut \u2014 its access road was the worst on the route and the day was overfull.']],
+ stops:[
+ {t:'09:00',d:1.25,n:'Overlap Stone',k:'view',lat:9.4596926,lng:100.0301346,c:300,r:[3.6,2349],pid:'ChIJS6N3bwjzVDARk3bkr_U08Cs',
+  why:'Two balanced boulders above the south coast, up a ten-minute climb with a boardwalk around them. \u0e3f300 including parking and a drink.',hop:{m:'car',km:5,min:12}},
+ {t:'10:15',d:1,n:'Hua Thanon Fish Market',k:'food',lat:9.4425483,lng:100.0235923,c:250,r:[4.3,682],pid:'ChIJm8-sjgjzVDARwV4VrZrRJv4',
+  why:'Working Muslim fishing village and the island\u2019s oldest settlement, where the morning catch is sold where it lands. Open 07:00\u201318:00.',hop:{m:'car',km:2,min:6}},
+ {t:'11:30',d:0.5,n:'Guan Yu Shrine',k:'culture',lat:9.445358,lng:100.024435,c:20,r:[4.5,1107],pid:'ChIJnV9jBAjzVDARI3eihsg0evg',
+  why:'Sixteen-metre statue of Guan Yu, the Chinese god of war \u2014 the largest in Thailand. \u0e3f20 and fifteen minutes.',hop:{m:'car',km:5,min:12}},
+ {t:'12:15',d:0.75,n:'Wat Khunaram',k:'culture',lat:9.4495305,lng:100.0003669,c:0,r:[4.5,2468],pid:'ChIJEUti54LzVDAR_QcBNK-lTQw',
+  why:'Home to the mummified monk Luang Pho Daeng, seated in meditation behind glass since 1973. Free; shoulders covered.',hop:{m:'car',km:5,min:12}},
+ {t:'13:30',d:1.75,n:'Na Muang Waterfall 1',k:'water',lat:9.4668075,lng:99.9837722,c:250,r:[3.9,4341],pid:'ChIJs4JYrs3zVDAR8YtHyZlFJ_M',
+  why:'Eighteen-metre fall into a swimmable pool, a hundred metres from the road. Free, with food stalls at the entrance.',hop:{m:'car',km:3,min:15}},
+ {t:'17:30',d:2.5,n:'Sunset View, Taling Ngam',res:1,tel:'+66 94 919 0316',k:'food',lat:9.4686816,lng:99.9326439,c:500,r:[4.7,286],pid:'ChIJV9evjqX1VDARV8FRv42LqQ4',
+  why:'West-coast Thai seafood restaurant on the sand \u2014 the only side of the island where the sun sets into the sea.'}]},
+
+{lab:'Day 6',date:'Mon 3 Aug',iso:'2026-08-03',ttl:'Ang Thong Marine Park',focus:'Mu Ko Ang Thong National Park, Thailand',gist:'Speedboat out to the 42-island archipelago. Kayak the Emerald Lake, climb the viewpoint, snorkel, home by five.',sea:1,
+ flags:[['tip','Weather-dependent \u2014 sea state decides on the morning. The park fee isn\u2019t in the tour price and is cash.']],
+ stops:[
+ {t:'07:30',d:0.5,n:'Pickup from the villa',noloc:1,k:'transit',lat:9.4885464,lng:100.0614014,c:0,
+  why:'Air-conditioned minivan to the west-coast pier, then speedboat out to the archipelago.',hop:{m:'boat',km:58,min:105}},
+ {t:'10:30',d:2,n:'Koh Wua Talap viewpoint',pid:'ChIJLSteRPxOVDARv0oeDXhky8c',res:1,q:'Ko Wua Ta Lap, Mu Ko Ang Thong',k:'hike',lat:9.6167,lng:99.6667,c:2500,
+  why:'Around 500 steps up limestone to a 360\u00b0 panorama over all 42 islands. Proper shoes; the rock is slick when wet.',hop:{m:'boat',km:6,min:15}},
+ {t:'12:30',d:2,n:'Emerald Lake + kayak',pid:'ChIJ80US8pJOVDAR4neTPpbKkME',q:'Emerald Lake, Ko Mae Ko, Ang Thong',k:'water',lat:9.6,lng:99.66,c:0,
+  why:'Thale Nai, a hidden saltwater lagoon inside Koh Mae Ko, ringed by cliffs. Kayaks on the water below it.',hop:{m:'boat',km:6,min:15}},
+ {t:'14:30',d:1.5,n:'Snorkel at Koh Wao',q:'Koh Wao, Ang Thong',k:'water',lat:9.65,lng:99.7,c:0,
+  why:'Shallow sheltered reef on the run home, with soft coral and dense schools of reef fish.',hop:{m:'boat',km:44,min:90}},
+ {t:'19:30',d:1.5,n:'Thai Kitchen',res:1,tel:'+66 90 091 9545',k:'food',lat:9.4686355,lng:100.0404936,c:400,r:[4.9,806],pid:'ChIJ4eKuCdbzVDARMLanyXhzqL8',
+  why:'One-woman Lamai kitchen cooking everything from scratch in front of you. 4.9 across 800 reviews. Closed Thursdays and Fridays.'}]},
+
+{lab:'Day 7',date:'Tue 4 Aug',iso:'2026-08-04',ttl:'Train, then Dune',gist:'Training morning, villa, then the whole afternoon at one beach club. Night market five minutes away for dinner. The soft day before a 06:00 pickup.',
+ flags:[['tip','Deliberately the lightest day of the week. Nothing here is more strenuous than a sunbed until the 15:30 split, and that is the point — you are up at 05:30 tomorrow.'],['warn','In bed by 22:00 \u2014 tomorrow starts at 05:30.']],
+ stops:[
+ {t:'08:00',d:1.5,n:'Legend X Fitness',who:'gym',k:'gym',lat:9.5594833,lng:100.0440304,c:250,r:[5,677],pid:'ChIJMbUErB3xVDAR7cGYnrV-j3Q',tel:'+66 62 151 5419',
+  why:'Last session, and two kilometres from the airport.',hop:{m:'car',km:8,min:22}},
+ {t:'08:00',d:1.25,n:'Isla Pilates, round two',who:'cafe',res:1,tel:'+66 80 502 8195',k:'active',lat:9.5358227,lng:100.0487746,c:900,r:[4.9,178],pid:'ChIJ5Yp0adPxVDARYLnpmXOASvQ',
+  why:'Second reformer class of the trip, with the matcha caf\u00e9 downstairs afterwards.',hop:{m:'car',km:6,min:16}},
+ {t:'10:00',d:0.75,n:'Back to the villa',k:'rest',lat:9.48847,lng:100.06142,c:0,pid:'ChIJ85Uh27_xVDARN0KLTIhKrgU',
+  why:'Shower, drop the kit, and let the morning settle before the day proper starts.',hop:{m:'car',km:5,min:14}},
+ {t:'12:00',d:5.5,n:'Dune Beach Club',res:1,tel:'+66 61 018 6209',k:'beach',lat:9.4562686,lng:100.0411009,c:1800,r:[5,352],pid:'ChIJ6yNDRszzVDARBy_frAHeNmI',
+  why:'South-of-France styling on the south Lamai sand. French kitchen, daybeds, open till midnight. 5.0 across 350 reviews.'},
+ {t:'18:30',d:2,n:'Lamai Night Market',pid:'ChIJAfusWELzVDARf4OIfVcPtpk',q:'Lamai Night Plaza, Koh Samui',k:'food',lat:9.47,lng:100.05,c:300,
+  why:'Nightly street-food market on the Lamai road: southern Thai dishes, grilled seafood and fresh juice. From 17:00.'},
+]},
+
+{lab:'Day 8',date:'Wed 5 Aug',iso:'2026-08-05',ttl:'Chaweng & shopping',gist:'Reformer pilates, the matcha café, air-conditioned shopping, then a beach-club dinner. Home at a civilised hour because Sunday starts early.',
+ flags:[],
+ stops:[
+ {t:'10:00',d:1,n:'Parroty Cafe, Chaweng',tel:'+66 83 242 5591',k:'cafe',lat:9.5179727,lng:100.05639,c:400,r:[4.8,355],pid:'ChIJjZOue5nxVDARdhdLMJG0WpU',
+  why:'The original Parroty. Smoothie bowls, matcha and avocado toast; very few tables and closes 16:30.',hop:{m:'car',km:2,min:7}},
+ {t:'11:30',d:2.5,n:'Central Festival Samui',pid:'ChIJ3VZjMsvxVDARv2v4mdy6xHA',q:'Central Festival Samui',k:'shopping',lat:9.529,lng:100.062,c:0,
+  why:'The island\u2019s main mall \u2014 air-conditioned, cinema, food hall, and an outdoor night market alongside from 17:00.',hop:{m:'car',km:1,min:5}},
+ {t:'15:00',d:2.5,n:'SALA Spa Chaweng',who:'cafe',res:1,k:'wellness',lat:9.5379631,lng:100.0695625,c:2800,r:[4.9,87],pid:'ChIJDQM02wLxVDARUK7Sc7UyhI4',tel:'+66 77 905 888',
+  why:'Resort spa with a moon pool and private treatment rooms with their own shower. The 90-minute signature massage is the one to book.'},
+ {t:'15:00',d:2.5,n:'Chaweng Beach',who:'gym',pid:'ChIJi44-Cb_xVDAR3HBn-sXIoho',q:'Chaweng Beach, Koh Samui',k:'beach',lat:9.522,lng:100.065,c:0,
+  why:'The island\u2019s longest and busiest beach: six kilometres of white sand, bars and jet skis.',hop:{m:'car',km:1,min:4}},
+ {t:'19:00',d:2.5,n:'Elephant Beach Club',res:1,tel:'+66 91 034 5261',k:'food',lat:9.5306781,lng:100.0655492,c:1100,r:[4.6,2223],pid:'ChIJAVQo7czxVDARRinjM7ou6Uo',
+  why:'Beachfront club at the north end of Chaweng with a pool, nightly fire show and dinner until 01:00.'},
+]},
+
+{lab:'Day 9',date:'Thu 6 Aug',iso:'2026-08-06',ttl:'Koh Tao & Koh Nang Yuan',focus:'Koh Nang Yuan, Koh Tao, Thailand',gist:'The big one, twelve hours door to door. The best snorkelling you can reach from Samui, and the sandbar photo everyone comes for.',sea:1,
+ flags:[['warn','The minivan cannot climb your access road. Agree a ring-road pickup point when you book \u2014 not at 06:00 in the dark.'],['tip','Book a speedboat tour, not the ferry. Shorter crossing, closer pier, and the operator handles Nang Yuan access.']],
+ stops:[
+ {t:'06:00',d:0.5,n:'Minivan pickup',noloc:1,k:'transit',lat:9.4885464,lng:100.0614014,c:0,
+  why:'Early transfer north to Bangrak pier for the speedboat. Seasickness tablets an hour before boarding.',hop:{m:'boat',km:84,min:125}},
+ {t:'09:15',d:1.5,n:'Koh Nang Yuan',pid:'ChIJMTP32lKfVTARedHNqkVkRW0',res:1,q:'Koh Nang Yuan',k:'hike',lat:10.1183,lng:99.8114,c:2100,
+  why:'Three islets joined by a white sandbar, with a steep ten-minute climb to the viewpoint. Cash only; no plastic bottles and no drones.',hop:{m:'boat',km:1,min:10}},
+ {t:'10:45',d:1,n:'Japanese Gardens',pid:'ChIJVy3G7r2hVTARPkrr89uNQF0',q:'Japanese Gardens, Koh Nang Yuan',k:'water',lat:10.115,lng:99.815,c:0,
+  why:'Sheltered shallow reef on the inner side of the sandbar. Hard coral and 15\u201320 m visibility.',hop:{m:'boat',km:3,min:15}},
+ {t:'12:00',d:3,n:'Mango Bay, Koh Tao',pid:'ChIJyffD3WefVTARonhgX__oMM4',q:'Mango Bay, Koh Tao',k:'water',lat:10.105,lng:99.825,c:0,
+  why:'Steep-sided bay on Koh Tao\u2019s north coast, reached by boat. Green turtles are common here.',hop:{m:'boat',km:70,min:105}},
+ {t:'19:30',d:1.5,n:'LimLongBar, or eat in',tel:'+66 65 582 1155',k:'food',lat:9.4720655,lng:100.0561298,c:350,r:[4.9,563],pid:'ChIJkQBMlWfzVDARcdDXF9nmVFQ',
+  why:'Small family Thai place five minutes from the villa, open till 22:00. Closed Tuesdays.'}]},
+
+{lab:'Day 10',date:'Fri 7 Aug',iso:'2026-08-07',ttl:'The Deck & Walking Street',gist:'Beach club all afternoon, then the best evening on the island \u2014 and it only happens on Fridays. Park once; they\u2019re a short walk apart.',
+ flags:[['warn','Taxi home. The Chaweng\u2013Lamai hill at midnight after a beach club and a market is not the ride to end this trip on.']],
+ stops:[
+ {t:'09:30',d:1,n:'Slow start at the villa',noloc:1,k:'rest',lat:9.4885464,lng:100.0614014,c:0,
+  why:'A late morning at the villa before heading north.',hop:{m:'car',km:16,min:35}},
+ {t:'11:00',d:0.75,n:'Sōle Matcha',k:'cafe',lat:9.5441348,lng:100.0351934,c:250,r:[5,12],pid:'ChIJBSwm38_xVDARqkktVMIJd38',tel:'+66 94 682 5996',
+  why:'Matcha specialist in Bophut with several ceremonial grades, oat or dairy, and house syrups. Closed Wednesdays, shuts at 17:00.',hop:{m:'car',km:3,min:9}},
+ {t:'12:30',d:4.5,n:'The Deck Beach Club',res:1,tel:'+66 63 085 4087',k:'beach',lat:9.5613818,lng:100.0396884,c:1750,r:[4.7,1133],pid:'ChIJD-GiKbnxVDAR3w9zLC1NWww',
+  why:'Screened beachfront club at Bophut with daybeds and a DJ from mid-afternoon. Fisherman\u2019s Village is a short walk along the sand.',hop:{m:'walk',km:.6,min:8}},
+ {t:'17:30',d:2.5,n:'Fisherman\u2019s Village Walking Street',k:'food',lat:9.5584582,lng:100.0313766,c:600,r:[4.4,5591],pid:'ChIJX5anyo3wVDARupr7atqyDZ4',
+  why:'Sino-Portuguese shophouses closed to traffic on Friday evenings: street food, crafts, live music, and a fire show at the far end. 17:00\u201323:00.'},
+]},
+
+{lab:'Day 11',date:'Sat 8 Aug',iso:'2026-08-08',ttl:'Last morning',gist:'The flight is 19:50, so there is a full day. A last session or a last swim, coffee in a garden, a massage, then out.',
+ flags:[],
+ stops:[
+ {t:'08:00',d:1.5,n:'Legend X Fitness',who:'gym',k:'gym',lat:9.5594833,lng:100.0440304,c:250,r:[5,677],pid:'ChIJMbUErB3xVDAR7cGYnrV-j3Q',tel:'+66 62 151 5419',
+  why:'Last session, and two kilometres from the airport.',hop:{m:'car',km:11,min:26}},
+ {t:'08:00',d:2,n:'Coral Cove, one last time',who:'cafe',k:'water',lat:9.4905625,lng:100.0612656,c:0,r:[4.4,1718],pid:'ChIJEfdXbA7xVDARfFIyIZ500K4',
+  why:'The cove below the villa at its calmest \u2014 flat water and an empty beach before 09:00.',hop:{m:'car',km:4,min:11}},
+ {t:'11:30',d:1.5,n:'Limay Coffee Garden',k:'cafe',lat:9.4568617,lng:100.038269,c:400,r:[4.8,144],pid:'ChIJ31ArK7DzVDARlzYsISyrGrg',tel:'+66 65 496 6842',
+  why:'Garden caf\u00e9 off the Lamai road with a natural spring pool the owner built by hand. Towels provided if you want to swim.'},
+ {t:'14:00',d:1.5,n:'Last massage in Lamai',res:1,tel:'+66 61 990 6683',k:'wellness',lat:9.4714865,lng:100.0545024,c:600,r:[4.9,1487],pid:'ChIJHTF_t_3zVDARdRvrSWx4lgg',
+  why:'Ninety minutes at Nakee in Lamai before the flight.',hop:{m:'car',km:11,min:30}},
+ {t:'17:15',d:2,n:'Samui airport',pid:'ChIJtxhNQDnwVDAR8DlfC70jAg8',q:'Samui International Airport',k:'transit',lat:9.5479,lng:100.0623,c:0,
+  why:'Open-air terminal, gardens, and a free snack lounge airside. Two hours is plenty.'},
+]}
+];
+
+/* WEATHER, in three tiers of honesty.
+   tier 1  live model forecast, pulled 24 Jul 2026. Horizon is 8 days.
+   tier 2  inside the ~14-day window, where models keep partial skill (~60-70% on
+           general conditions in this season). Stated as ranges, not fake precision.
+   tier 3  beyond useful forecast skill. August climate normals instead. Sources:
+           climate-data.org 1999-2019, weather-and-climate.com 1990-2020.
+   The "30-day forecasts" some sites publish are climatology relabelled - not forecasts. */
+const WX={
+ '2026-07-29':{tier:1,hi:'27',lo:'24',rain:'65',mid:65,
+   note:'Wettest of the three forecast days, and you land at 16:30 \u2014 hence the taxi.'},
+ '2026-07-30':{tier:1,hi:'27',lo:'24',rain:'35',mid:35,
+   note:'Driest day in the window, which is why the beach, snorkel and sunset all sit here.'},
+ '2026-07-31':{tier:1,hi:'28',lo:'24',rain:'50',mid:50,
+   note:'Even odds on a shower, but today is mostly indoors anyway.'},
+ '2026-08-01':{tier:2,hi:'29\u201330',lo:'25\u201326',rain:'40\u201360',mid:50,
+   note:'Dune all day. A shower costs you nothing here \u2014 covered seating and a kitchen.'},
+ '2026-08-02':{tier:2,hi:'29\u201330',lo:'25\u201326',rain:'40\u201360',mid:50,
+   note:'The one day where weather genuinely matters: the viewpoints and the Taling Ngam sunset are the whole point. Check the forecast on 30 July and swap with Tuesday if it looks bad.'},
+ '2026-08-03':{tier:2,hi:'29\u201330',lo:'25\u201326',rain:'40\u201355',mid:48,
+   note:'Ang Thong. Sea state decides this, not rainfall \u2014 the operator calls it on the morning. Statistically the driest date in August on Samui.'},
+ '2026-08-04':{tier:2,hi:'29\u201330',lo:'25\u201326',rain:'40\u201360',mid:50,
+   note:'Elephants, two temples, Italian on the beach. Works wet or dry.'},
+ '2026-08-05':{tier:2,hi:'29\u201330',lo:'25\u201326',rain:'40\u201360',mid:50,
+   note:'Rest day. Rain is actively welcome.'},
+ '2026-08-06':{tier:3,hi:'28\u201330',lo:'25\u201327',rain:'40\u201355',mid:48,
+   note:'Koh Tao. Swell matters more than rain, and this is past useful forecast range \u2014 check it on 2 August.'},
+ '2026-08-07':{tier:3,hi:'28\u201330',lo:'25\u201327',rain:'40\u201355',mid:48,
+   note:'Walking Street runs in rain \u2014 it is a street of covered shophouses.'},
+ '2026-08-08':{tier:3,hi:'28\u201330',lo:'25\u201327',rain:'40\u201355',mid:48,
+   note:'Departure day. Irrelevant by 17:15.'}
+};
+const TIER={1:{lab:'Forecast',col:'var(--tx2)'},
+            2:{lab:'10-day outlook',col:'var(--amber)'},
+            3:{lab:'August average',col:'var(--tx3)'}};
+
+/* ---------- state ---------- */
+let cur=0; const dropped=new Set();
+const kk=(d,i)=>d+'-'+i;
+const live=(d,i)=>{const s=D[d].stops[i];return s.opt?dropped.has('+'+kk(d,i)):!dropped.has(kk(d,i))};
+const onStops=d=>D[d].stops.filter((_,i)=>live(d,i));
+
+/* ---------- pace ---------- */
+const mm=t=>{const[h,m]=t.split(':').map(Number);return h*60+m};
+function pace(d){
+  const st=onStops(d);
+  if(!st.length)return{h:0,km:0,key:'easy',word:'Nothing planned'};
+  let sh=0,tA=0,tB=0,tm=0,km=0;
+  st.forEach(s=>{
+    const g=(s.d||0)*(WT[s.k]||1);
+    if(s.who==='gym')tA+=g; else if(s.who==='cafe')tB+=g; else sh+=g;
+    /* travel follows whoever is doing that stop, so it splits with the track */
+    if(s.hop){const t=s.hop.min/60*1.3;
+      if(s.who==='gym')tA+=t; else if(s.who==='cafe')tB+=t; else tm+=s.hop.min;
+      km+=s.hop.km}
+  });
+  const first=mm(st[0].t), pen=first<390?2:first<450?1.5:first<510?.75:0;
+  /* nobody does both tracks, so only the heavier one counts against a person's day */
+  const h=sh+Math.max(tA,tB)+tm/60*1.3+pen;
+  const key=h<5?'easy':h<9?'steady':h<12?'busy':'big';
+  return{h,km,key,split:!!(tA&&tB),
+    word:{easy:'Easy day',steady:'Steady day',busy:'Busy day',big:'Big day'}[key]};
+}
+
+/* ---------- fallback sketch: renders instantly, no network ---------- */
+const COAST=[[9.585,99.975],[9.578,100.005],[9.562,100.028],[9.567,100.045],[9.565,100.055],
+[9.577,100.068],[9.564,100.076],[9.548,100.07],[9.534,100.068],[9.52,100.068],[9.492,100.066],
+[9.477,100.069],[9.465,100.058],[9.455,100.045],[9.443,100.035],[9.432,100.01],[9.428,99.985],
+[9.432,99.96],[9.445,99.94],[9.455,99.932],[9.475,99.925],[9.5,99.92],[9.525,99.923],
+[9.545,99.93],[9.565,99.945],[9.578,99.96]];
+const TAO=[[10.135,99.815],[10.12,99.845],[10.085,99.85],[10.06,99.83],[10.075,99.8],[10.105,99.795]];
+const PHA=[[9.795,100.01],[9.782,100.055],[9.755,100.07],[9.72,100.062],[9.7,100.03],[9.705,99.995],
+[9.735,99.965],[9.77,99.972]];
+const NEAR={la0:9.617,la1:9.408,ln0:99.900,ln1:100.098,pad:34};
+const FAR ={la0:10.21,la1:9.33,ln0:99.57,ln1:100.15,pad:30};
+const SW=460,SH=520;
+const px=(B,lat,lng)=>({x:B.pad+(lng-B.ln0)/(B.ln1-B.ln0)*(SW-B.pad*2),
+                        y:B.pad+(B.la0-lat)/(B.la0-B.la1)*(SH-B.pad*2)});
+function shape(B,pts,k){
+  const P=pts.map(q=>px(B,q[0],q[1]));
+  if(k&&k!==1){const cx=P.reduce((a,q)=>a+q.x,0)/P.length,cy=P.reduce((a,q)=>a+q.y,0)/P.length;
+    P.forEach(q=>{q.x=cx+(q.x-cx)*k;q.y=cy+(q.y-cy)*k})}
+  let d='M'+P[0].x.toFixed(1)+','+P[0].y.toFixed(1);
+  for(let i=0;i<P.length;i++){const b=P[(i+1)%P.length],n=P[(i+2)%P.length];
+    d+=' Q'+b.x.toFixed(1)+','+b.y.toFixed(1)+' '+((b.x+n.x)/2).toFixed(1)+','+((b.y+n.y)/2).toFixed(1)}
+  return d+'Z';
+}
+function drawSketch(){
+  const el=document.getElementById('sketch');
+  if(!el)return;
+  const st=onStops(cur).filter(x=>x.lat);
+  const far=D[cur].sea||st.some(x=>x.lat>9.62);
+  const B=far?FAR:NEAR;
+  const C={water:'#141f26',shoal:'#18262e',land:'#272522',park:'#26302a',road:'#3d3a35',edge:'#3a3733'};
+  let g='<rect width="'+SW+'" height="'+SH+'" fill="'+C.water+'"/>';
+  (far?[COAST,PHA,TAO]:[COAST]).forEach(q=>{
+    g+='<path d="'+shape(B,q,1.10)+'" fill="'+C.shoal+'"/>';
+    g+='<path d="'+shape(B,q,1)+'" fill="'+C.land+'" stroke="'+C.edge+'" stroke-width="1"/>';
+  });
+  if(!far){
+    g+='<path d="'+shape(B,COAST,.6)+'" fill="'+C.park+'"/>';
+    g+='<path d="'+shape(B,COAST,.9)+'" fill="none" stroke="'+C.road+'" stroke-width="2.2" stroke-linejoin="round"/>';
+  }
+  if(far)[[9.62,99.665],[9.6,99.66],[9.65,99.7],[9.58,99.68]].forEach((a,i)=>{
+    const q=px(B,a[0],a[1]);
+    g+='<ellipse cx="'+q.x.toFixed(1)+'" cy="'+q.y.toFixed(1)+'" rx="'+(3+i%3)+'" ry="'+(2.4+i%2)+
+       '" fill="'+C.land+'" stroke="'+C.edge+'"/>';});
+  const pts=st.map(x=>px(B,x.lat,x.lng));
+  if(pts.length>1){
+    const d='M'+pts.map(q=>q.x.toFixed(1)+','+q.y.toFixed(1)).join(' L');
+    g+='<path d="'+d+'" fill="none" stroke="#0d1418" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/>';
+    g+='<path d="'+d+'" fill="none" stroke="#7cb2f0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>';
+  }
+  if(!far){const v=px(B,9.48847,100.06142);
+    g+='<circle cx="'+v.x.toFixed(1)+'" cy="'+v.y.toFixed(1)+'" r="13" fill="#e8836f" opacity=".14"/>'+
+       '<circle cx="'+v.x.toFixed(1)+'" cy="'+v.y.toFixed(1)+'" r="4.2" fill="#e8836f" stroke="'+C.land+'" stroke-width="1.6"/>';}
+  st.forEach((x,i)=>{
+    const q=pts[i], col=CAT[x.k]||'#a8a29b';
+    g+='<circle cx="'+q.x.toFixed(1)+'" cy="'+q.y.toFixed(1)+'" r="14" fill="'+col+'" opacity=".16"/>';
+    g+='<circle cx="'+q.x.toFixed(1)+'" cy="'+q.y.toFixed(1)+'" r="10" fill="'+col+'" stroke="'+C.water+'" stroke-width="2.5"/>';
+    g+='<text x="'+q.x.toFixed(1)+'" y="'+(q.y+3.6).toFixed(1)+'" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#11161a">'+(i+1)+'</text>';
+  });
+  g+='<text x="'+(SW-14)+'" y="'+(SH-14)+'" text-anchor="end" font-family="Inter,sans-serif" font-size="10.5" fill="#59636b">'+
+     (far?'Gulf of Thailand':'Ko Samui')+' \u00b7 stops in order</text>';
+  el.innerHTML=g;
+}
+
+/* ---------- google maps urls ---------- */
+const ll=s=>s.lat+','+s.lng;
+function routeUrl(d){
+  const st=onStops(d).filter(s=>s.lat);
+  if(!st.length)return 'https://www.google.com/maps';
+  if(D[d].focus)
+    return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(D[d].focus);
+  if(st.length===1)
+    return placeUrl(st[0]);
+  const wp=st.slice(1,-1).map(ll).join('|');
+  return 'https://www.google.com/maps/dir/?api=1&origin='+ll(st[0])+'&destination='+ll(st[st.length-1])+
+    (wp?'&waypoints='+encodeURIComponent(wp):'')+'&travelmode=driving';
+}
+const placeUrl=s=>s.pid
+  ? 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(s.n)+'&query_place_id='+s.pid
+  : 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(s.q||(s.n+', Koh Samui, Thailand'));
+
+/* ---------- render ---------- */
+const ico=(p,c,sz)=>'<svg viewBox="0 0 24 24" width="'+(sz||16)+'" height="'+(sz||16)+'" style="fill:'+c+'"><path d="'+p+'"/></svg>';
+const PART=t=>{const m=mm(t);return m<720?'Morning':m<1020?'Afternoon':'Evening'};
+
+function drawWx(){
+  const el=document.getElementById('wxstrip');
+  el.innerHTML=D.map((day,i)=>{
+    const w=WX[day.iso]; if(!w)return '<div class="wxcell"></div>';
+    const hi=w.hi.split('\u2013').pop();
+    const rain=w.tier===1?w.rain+'%':'~'+w.mid+'%';
+    return '<button class="wxcell t'+w.tier+(cur===i?' on':'')+'" data-i="'+i+'" '+
+      'title="'+day.date+' \u2014 '+TIER[w.tier].lab+' \u00b7 '+w.hi+'\u00b0C \u00b7 '+w.rain+'% rain" '+
+      'aria-label="'+day.date+', '+TIER[w.tier].lab+', '+w.hi+' degrees, '+w.rain+' percent rain">'+
+      ico(wxIcon(w.mid),wxCol(w.mid),17)+
+      '<b>'+hi+'\u00b0</b><em>'+rain+'</em></button>';
+  }).join('');
+  el.querySelectorAll('.wxcell').forEach(b=>{if(b.dataset.i)b.onclick=()=>go(+b.dataset.i)});
+}
+
+function drawShape(){
+  const mx=Math.max(...D.map((_,i)=>pace(i).h),12);
+  document.getElementById('shape').innerHTML=D.map((day,i)=>{
+    const p=pace(i);
+    const col={easy:'#7ec98b',steady:'#a8a29b',busy:'#e8b23a',big:'#e8836f'}[p.key];
+    return '<button class="sbar'+(cur===i?' on':'')+'" data-i="'+i+'" title="'+day.date+' — '+p.word+'" '+
+      'aria-label="'+day.date+', '+day.ttl+', '+p.word+'" '+
+      'style="height:'+Math.max(6,p.h/mx*40)+'px;background:'+col+'"></button>'}).join('');
+  document.getElementById('shapelab').innerHTML=D.map(d=>'<span>'+d.date.split(' ')[1]+'</span>').join('');
+  document.querySelectorAll('.sbar').forEach(b=>b.onclick=()=>go(+b.dataset.i));
+}
+
+function drawPills(){
+  document.getElementById('pills').innerHTML=D.map((d,i)=>
+    '<button class="pill" role="tab" aria-selected="'+(cur===i)+'" data-i="'+i+'">'+d.lab+'</button>').join('');
+  document.querySelectorAll('.pill').forEach(b=>b.onclick=()=>go(+b.dataset.i));
+}
+
+function drawPanel(){
+  const day=D[cur], p=pace(cur);
+  let html='<div class="dtag">'+day.lab+' of 11</div>'+
+    '<h2>'+day.date+' \u2014 '+day.ttl+'</h2>'+
+    '<p class="gist">'+day.gist+'</p>'+
+    '<div class="pacerow"><span class="pace '+p.key+'">'+p.word+'</span>'+
+      (p.split?'<span class="pace" style="color:var(--tx2);border-color:var(--line2);'+
+              'background:rgba(255,255,255,.04)">Group splits</span>':'')+
+    '<span class="fact">'+onStops(cur).length+' stops'+(p.km?' \u00b7 '+Math.round(p.km)+' km':'')+'</span></div>'+
+    wxNote(day)+
+    '<a class="route-btn" href="'+routeUrl(cur)+'" target="_blank" rel="noopener">'+
+      ico(I.nav,'currentColor',16)+(day.sea?'Open area in Maps':'Open route')+'</a>'+
+    day.flags.map(f=>'<div class="flag '+f[0]+'">'+
+      ico(f[0]==='warn'?'M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z'
+        :'M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z','currentColor',15)+
+      '<span>'+f[1]+'</span></div>').join('');
+
+  let part='';
+  day.stops.forEach((s,i)=>{
+    const pt=PART(s.t);
+    if(pt!==part){html+=(part?'</div>':'')+'<div class="part"><h3>'+pt+'</h3>';part=pt}
+    const isOn=live(cur,i), col=CAT[s.k]||'#a8a29b';
+    html+='<div class="stop'+(isOn?'':' dropped')+'" data-si="'+i+'">'+
+      '<div class="thumb" style="background:'+col+'1f">'+(photoOf(s)
+        ?'<img src="'+photoOf(s)+'" alt="" loading="lazy" onerror="this.remove()">'
+        :ico(I[s.k]||I.transit,col,22))+'</div>'+
+      '<div class="sinfo">'+
+        '<div class="time">'+s.t+'</div>'+
+        '<div class="sname">'+(s.noloc?'<span>'+s.n+'</span>':'<a href="'+placeUrl(s)+'" target="_blank" rel="noopener">'+s.n+'</a>')+
+          (s.who?'<span class="who '+s.who+'">'+WHO[s.who]+'</span>':'')+
+          (s.res?'<span class="res">Book ahead</span>':'')+'</div>'+
+        '<div class="line2">'+
+          (s.r?'<span class="star">'+s.r[0].toFixed(1)+ico(I.star,'var(--amber)',11)+
+               '<span style="color:var(--tx3)">('+s.r[1].toLocaleString()+')</span></span><span class="sep"></span>':'')+
+          '<span>'+(KIND[s.k]||s.k)+'</span></div>'+
+        '<p class="why">'+s.why+'</p>'+
+        '<div class="sfoot">'+
+          (s.noloc?'':'<a class="mini" href="'+placeUrl(s)+'" target="_blank" rel="noopener">'+ico(I.open,'currentColor',12)+'Maps</a>')+
+          '<button class="mini" data-i="'+i+'">'+(isOn?'Not doing this':'Put it back')+'</button>'+
+          (s.c?'<span class="money">\u0e3f'+s.c.toLocaleString()+' each</span>':'')+
+        '</div>'+
+      '</div></div>';
+    const nx=day.stops.findIndex((_,j)=>j>i&&live(cur,j));
+    if(s.hop&&isOn&&nx>-1)html+='<div class="hop">'+
+      ico(s.hop.m==='boat'?I.boat:s.hop.m==='walk'?I.walk:I.transit,'var(--tx3)',13)+
+      s.hop.km+' km \u00b7 '+s.hop.min+' min'+(s.hop.m==='boat'?' by boat':s.hop.m==='walk'?' on foot':'')+'</div>';
+  });
+  html+=part?'</div>':'';
+  const el=document.getElementById('panel');
+  el.innerHTML=html; el.scrollTop=0;
+  el.querySelectorAll('.stop').forEach(c=>c.onclick=ev=>{
+    if(ev.target.closest('a,button'))return;
+    openDetail(cur,+c.dataset.si);
+  });
+  el.querySelectorAll('.sfoot button').forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.i, s=D[cur].stops[i];
+    const k=s.opt?'+'+kk(cur,i):kk(cur,i);
+    dropped.has(k)?dropped.delete(k):dropped.add(k);
+    delete routeCache[cur];
+    render();
+  });
+}
+
+/* ---------- Google Maps JavaScript API ---------- */
+const DARK=[
+ {elementType:'geometry',stylers:[{color:'#272522'}]},
+ {elementType:'labels.text.fill',stylers:[{color:'#9c968d'}]},
+ {elementType:'labels.text.stroke',stylers:[{color:'#1b1a18'},{weight:3}]},
+ {featureType:'administrative',elementType:'geometry',stylers:[{visibility:'off'}]},
+ {featureType:'administrative.locality',elementType:'labels.text.fill',stylers:[{color:'#b3ada4'}]},
+ {featureType:'poi',elementType:'labels.text.fill',stylers:[{color:'#8b9384'}]},
+ {featureType:'poi.business',stylers:[{visibility:'off'}]},
+ {featureType:'poi.park',elementType:'geometry',stylers:[{color:'#26302a'}]},
+ {featureType:'poi.park',elementType:'labels.text.fill',stylers:[{color:'#7d9b7a'}]},
+ {featureType:'landscape.natural',elementType:'geometry',stylers:[{color:'#2a2825'}]},
+ {featureType:'road',elementType:'geometry',stylers:[{color:'#3a3733'}]},
+ {featureType:'road',elementType:'geometry.stroke',stylers:[{color:'#211f1d'}]},
+ {featureType:'road',elementType:'labels.text.fill',stylers:[{color:'#9a948b'}]},
+ {featureType:'road.highway',elementType:'geometry',stylers:[{color:'#4a453e'}]},
+ {featureType:'road.highway',elementType:'geometry.stroke',stylers:[{color:'#1f1d1b'}]},
+ {featureType:'transit',stylers:[{visibility:'off'}]},
+ {featureType:'water',elementType:'geometry',stylers:[{color:'#141f26'}]},
+ {featureType:'water',elementType:'labels.text.fill',stylers:[{color:'#4a6b7a'}]},
+ {featureType:'water',elementType:'labels.text.stroke',stylers:[{color:'#101a20'}]}
+];
+let gmap=null, gOK=false, overlays=[], lines=[], PinCls=null, showGoogle=true, apiTimer=null;
+const routeCache={};   /* one Directions call per day, then reused */
+let paintGen=0;        /* guards against a slow reply painting the wrong day */
+
+function makePinClass(){
+  class Pin extends google.maps.OverlayView{
+    constructor(pos,html,cls,onClick){super();this.pos=pos;this.html=html;this.cls=cls;this.cb=onClick}
+    onAdd(){
+      this.el=document.createElement('div');
+      this.el.className=this.cls; this.el.innerHTML=this.html;
+      if(this.cb)this.el.addEventListener('click',this.cb);
+      this.getPanes().floatPane.appendChild(this.el);
+    }
+    draw(){const pr=this.getProjection();if(!pr||!this.el)return;
+      const q=pr.fromLatLngToDivPixel(this.pos);
+      if(q){this.el.style.left=q.x+'px';this.el.style.top=q.y+'px'}}
+    onRemove(){if(this.el){this.el.remove();this.el=null}}
+  }
+  return Pin;
+}
+
+function clearOverlays(){overlays.forEach(o=>o.setMap(null));overlays=[];
+  lines.forEach(l=>l.setMap(null));lines=[]}
+
+/* draw a polyline pair: dark casing beneath, blue on top - same as Google's own rendering */
+function layLine(path,solid){
+  lines.forEach(l=>l.setMap(null));lines=[];
+  lines.push(new google.maps.Polyline({path,map:gmap,geodesic:!solid,clickable:false,
+    strokeColor:'#0d1418',strokeOpacity:.55,strokeWeight:solid?9:0,zIndex:1}));
+  lines.push(new google.maps.Polyline({path,map:gmap,geodesic:!solid,clickable:false,
+    strokeColor:'#7cb2f0',strokeOpacity:solid?1:0,strokeWeight:solid?5:3.5,zIndex:2,
+    icons:solid?null:[{icon:{path:'M 0,-1 0,1',strokeOpacity:1,strokeColor:'#7cb2f0',scale:3},
+                       offset:'0',repeat:'13px'}]}));
+}
+
+/* ask Google for the driving route through the day's stops, in the order we planned them */
+function roadRoute(d,cb){
+  if(d in routeCache){cb(routeCache[d]);return}
+  const st=onStops(d).filter(x=>x.lat&&x.who!=='cafe');
+  if(D[d].sea||st.length<2||!window.google||!google.maps.DirectionsService){cb(null);return}
+  new google.maps.DirectionsService().route({
+    origin:{lat:st[0].lat,lng:st[0].lng},
+    destination:{lat:st[st.length-1].lat,lng:st[st.length-1].lng},
+    waypoints:st.slice(1,-1).map(x=>({location:{lat:x.lat,lng:x.lng},stopover:true})),
+    travelMode:google.maps.TravelMode.DRIVING,
+    optimizeWaypoints:false          /* order is deliberate - opening hours and sunset */
+  },(res,status)=>{
+    if(status==='OK'&&res.routes&&res.routes[0]){
+      const r=res.routes[0], path=[];
+      let m=0,sec=0;
+      r.legs.forEach(l=>{m+=l.distance?l.distance.value:0;sec+=l.duration?l.duration.value:0;
+        l.steps.forEach(t=>t.path.forEach(pt=>path.push(pt)))});
+      routeCache[d]={path,km:Math.round(m/100)/10,min:Math.round(sec/60)};
+    }else{routeCache[d]=null}
+    cb(routeCache[d]);
+  });
+}
+
+function paintMap(){
+  if(!gOK||!gmap)return;
+  clearOverlays();
+  const st=onStops(cur).filter(x=>x.lat);
+  if(!st.length)return;
+  const bounds=new google.maps.LatLngBounds();
+
+  const gen=++paintGen;
+  const routeStops=st.filter(x=>x.who!=='cafe');   /* one line, not a zigzag between tracks */
+  const straight=routeStops.map(x=>({lat:x.lat,lng:x.lng}));
+  straight.forEach(q=>bounds.extend(q));
+  const chip=document.getElementById('routechip');
+  if(straight.length>1){
+    layLine(straight,false);                      /* instant, so nothing flashes empty */
+    if(D[cur].sea){chip.textContent='Sea crossing \u2014 no road route';chip.classList.add('on')}
+    else{
+      chip.textContent='Finding the road route\u2026';chip.classList.add('on');
+      roadRoute(cur,r=>{
+        if(gen!==paintGen)return;                 /* day changed while we waited */
+        if(r&&r.path.length){
+          layLine(r.path,true);
+          const h=Math.floor(r.min/60), m=r.min%60;
+          chip.textContent='By road \u00b7 '+r.km+' km \u00b7 '+(h?h+' h '+m+' min':m+' min');
+        }else{
+          chip.textContent='Straight lines \u2014 enable the Directions API for road routes';
+        }
+      });
+    }
+  }else{chip.classList.remove('on')}
+  st.forEach((x,i)=>{
+    const ph=photoOf(x), col=CAT[x.k]||'#a8a29b';
+    const inner=ph?'<img src="'+ph+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">'
+                  :'<svg viewBox="0 0 24 24" style="fill:'+col+'"><path d="'+(I[x.k]||I.transit)+'"/></svg>';
+    const html='<div class="gm-card">'+inner+'</div><span class="gm-n">'+(i+1)+'</span>'+
+               '<span class="gm-lab">'+x.n.replace(/"/g,'&quot;')+'</span>';
+    const pin=new PinCls(new google.maps.LatLng(x.lat,x.lng),html,'gm-pin',
+      ()=>openDetail(cur,D[cur].stops.indexOf(x)));
+    pin.setMap(gmap); overlays.push(pin);
+  });
+  if(!D[cur].sea){
+    const v=new google.maps.LatLng(9.48847,100.06142);
+    bounds.extend(v);
+    const vp=new PinCls(v,'<i></i>','gm-villa',null);
+    vp.setMap(gmap); overlays.push(vp);
+  }
+  gmap.fitBounds(bounds,{top:70,right:60,bottom:70,left:60});
+  if(st.length===1)setTimeout(()=>gmap.setZoom(14),60);
+}
+
+window.initSamuiMap=function(){
+  try{
+    PinCls=makePinClass();
+    gmap=new google.maps.Map(document.getElementById('gmap'),{
+      center:{lat:9.5,lng:100.02},zoom:11,styles:DARK,
+      disableDefaultUI:true,zoomControl:true,gestureHandling:'greedy',
+      clickableIcons:false,keyboardShortcuts:false
+    });
+    gOK=true; clearTimeout(apiTimer);
+    document.getElementById('gmap').classList.add('up');
+    paintMap();
+  }catch(e){mapFail()}
+};
+function mapFail(){
+  gOK=false;
+  document.getElementById('gmap').classList.remove('up');
+  const n=document.getElementById('mapnote');
+  n.innerHTML='<b>Google\u2019s map didn\u2019t load.</b> The simple map above still shows the route in order. '+
+    'If you\u2019re viewing this in a chat window, download the file and open it in your browser \u2014 '+
+    'sandboxed previews block the Maps script. '+
+    '<a href="'+routeUrl(cur)+'" target="_blank" rel="noopener" style="color:var(--blue)">Open in Google Maps \u2192</a>';
+  n.classList.add('on');
+  document.getElementById('mapswap').textContent='Retry Google map';
+}
+function bootMap(){
+  if(!GKEY){mapFail();return}
+  if(window.google&&window.google.maps){window.initSamuiMap();return}
+  const sc=document.createElement('script');
+  sc.src='https://maps.googleapis.com/maps/api/js?key='+GKEY+'&v=weekly&callback=initSamuiMap';
+  sc.async=true; sc.onerror=mapFail;
+  document.head.appendChild(sc);
+  apiTimer=setTimeout(()=>{if(!gOK)mapFail()},8000);
+}
+document.getElementById('mapswap').onclick=e=>{
+  showGoogle=!showGoogle;
+  const g=document.getElementById('gmap'), n=document.getElementById('mapnote');
+  if(showGoogle){e.currentTarget.textContent='Simple map';n.classList.remove('on');
+    if(gOK){g.classList.add('up');paintMap()}else{bootMap()}}
+  else{e.currentTarget.textContent='Google map';g.classList.remove('up');n.classList.remove('on')}
+};
+
+/* ---------- forecast ---------- */
+const SUN='M12 17a5 5 0 110-10 5 5 0 010 10zm0-13.5V1h0M11 1h2v3h-2V1zm0 19h2v3h-2v-3zM1 11h3v2H1v-2zm19 0h3v2h-3v-2zM4.2 5.6L2.8 4.2l2.1-2.1 1.4 1.4-2.1 2.1zm13.5 13.5l1.4-1.4 2.1 2.1-1.4 1.4-2.1-2.1zM19.8 5.6l-2.1-2.1 1.4-1.4 2.1 2.1-1.4 1.4zM4.2 18.4l2.1 2.1-1.4 1.4-2.1-2.1 1.4-1.4z';
+const PCLOUD='M19.4 10a7 7 0 00-13.1-2A5.5 5.5 0 006.5 19h12.9a4.5 4.5 0 00.1-9z';
+const SHOWER='M19.4 8.5a7 7 0 00-13.1-2A5.5 5.5 0 006.5 17h12.9a4.5 4.5 0 00.1-8.5zM7.5 19l-1 3h1.8l1-3H7.5zm4 0l-1 3h1.8l1-3h-1.8zm4 0l-1 3h1.8l1-3h-1.8z';
+const wxIcon=r=>r>=60?SHOWER:r>=40?PCLOUD:SUN;
+const wxCol=r=>r>=60?'var(--blue)':r>=40?'var(--tx2)':'var(--amber)';
+
+function wxNote(day){
+  const w=WX[day.iso];
+  if(!w)return '';
+  const t=TIER[w.tier];
+  return '<div class="flag tip" style="margin-top:0;margin-bottom:14px">'+
+    ico(wxIcon(w.mid),'currentColor',15)+'<span><b style="color:'+t.col+'">'+t.lab+
+    '</b> \u00b7 '+w.hi+'\u00b0C, '+w.rain+'% rain. '+w.note+'</span></div>';
+}
+
+/* ---------- place detail card ---------- */
+let dOpen=false, dDay=0, dIdx=0;
+const XI='M19 6.4L17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z';
+const TELI='M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.2 1.2.4 2.4.6 3.7.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.7.1.4 0 .8-.2 1.1l-2.2 2.2z';
+const CHEV='M8.6 16.6L13.2 12 8.6 7.4 10 6l6 6-6 6z';
+const COIN='M12 2a10 10 0 100 20 10 10 0 000-20zm1.1 15.2v1.3h-2v-1.3c-1.6-.3-2.8-1.3-2.9-2.9h1.9c.1.8.7 1.4 2 1.4 1.4 0 1.8-.7 1.8-1.2 0-.6-.3-1.2-2-1.6-1.9-.5-3.3-1.2-3.3-2.9 0-1.4 1.1-2.3 2.5-2.6V5.5h2v1.4c1.5.3 2.4 1.4 2.5 2.7h-1.9c-.1-.8-.6-1.3-1.6-1.3-1.1 0-1.6.5-1.6 1.1 0 .6.4 1 2 1.4 1.9.5 3.3 1.2 3.3 3 0 1.5-1.1 2.4-2.7 2.7z';
+
+function liveIdx(d){const a=[];D[d].stops.forEach((_,i)=>{if(live(d,i))a.push(i)});return a}
+
+function openDetail(d,i){dDay=d;dIdx=i;dOpen=true;
+  if(d!==cur){cur=d;render()}
+  drawDetail();document.getElementById('detail').classList.add('on');markSel()}
+function closeDetail(){dOpen=false;
+  document.getElementById('detail').classList.remove('on');markSel()}
+function markSel(){document.querySelectorAll('.gm-pin').forEach((el,k)=>{
+  const ix=liveIdx(cur).indexOf(dIdx);
+  el.classList.toggle('sel',dOpen&&dDay===cur&&k===ix)})}
+
+function stepDetail(dir){
+  const ids=liveIdx(dDay), at=ids.indexOf(dIdx);
+  if(dir>0){
+    if(at<ids.length-1){dIdx=ids[at+1];drawDetail();markSel();return}
+    if(dDay<D.length-1){const nd=dDay+1,ni=liveIdx(nd);if(ni.length)openDetail(nd,ni[0]);return}
+  }else{
+    if(at>0){dIdx=ids[at-1];drawDetail();markSel();return}
+    if(dDay>0){const pd=dDay-1,pi=liveIdx(pd);if(pi.length)openDetail(pd,pi[pi.length-1]);return}
+  }
+}
+
+function drawDetail(){
+  const day=D[dDay], st=day.stops[dIdx];
+  if(!st)return;
+  const ids=liveIdx(dDay), at=ids.indexOf(dIdx);
+  const ph=photoOf(st), col=CAT[st.k]||'#a8a29b';
+  const last=at===ids.length-1, first=at===0;
+  const nextLabel=last?(dDay<D.length-1?D[dDay+1].lab:''):'Next';
+  document.getElementById('detail').innerHTML=
+   '<div class="dt-hero">'+
+     '<div class="ph">'+ico(I[st.k]||I.transit,col,44)+'</div>'+
+     (ph?'<img src="'+ph+'" alt="'+st.n.replace(/"/g,'&quot;')+'" onerror="this.style.display=\'none\'">':'')+
+     '<button class="dt-x" id="dtX" aria-label="Close">'+ico(XI,'#f2efeb',16)+'</button>'+
+   '</div>'+
+   '<div class="dt-body">'+
+     '<div class="dt-when">'+day.lab+' \u00b7 '+day.date+' \u00b7 '+st.t+'</div>'+
+     '<h3 class="dt-name">'+st.n+'</h3>'+
+     '<div class="dt-meta">'+
+       (st.r?'<span class="star">'+st.r[0].toFixed(1)+ico(I.star,'var(--amber)',13)+
+             '<span style="color:var(--tx3)">('+st.r[1].toLocaleString()+')</span></span>'+
+             '<span class="dot-sep"></span>':'')+
+       '<span>'+(KIND[st.k]||st.k)+'</span>'+
+       (st.who?'<span class="dot-sep"></span><span style="color:'+
+         (st.who==='cafe'?'#e8a9c9':'#a9cdf5')+'">'+WHO[st.who]+'</span>':'')+
+       (st.d?'<span class="dot-sep"></span><span>'+st.d+' h</span>':'')+
+     '</div>'+
+     (st.why?'<div class="dt-note"><h4>Why it\u2019s on the list</h4><p>'+st.why+'</p></div>':'')+
+     (st.res?'<div class="dt-row" style="color:#e8c46a">'+ico(I.star,'#e8c46a',16)+
+        'Reserve ahead \u2014 six people'+(st.tel?', call below':'')+'</div>':'')+
+     (st.tel?'<a class="dt-row" href="tel:'+st.tel.replace(/\s/g,'')+'">'+ico(TELI,'currentColor',16)+st.tel+'</a>':'')+
+     (st.c?'<div class="dt-row">'+ico(COIN,'var(--tx3)',16)+'\u0e3f'+st.c.toLocaleString()+
+        ' each \u00b7 '+Math.round(st.c*6*FX).toLocaleString()+' K\u010d for six</div>':'')+
+     (st.noloc?'':'<a class="dt-row" href="'+placeUrl(st)+'" target="_blank" rel="noopener">'+
+        ico(I.open,'currentColor',16)+'Open in Google Maps</a>')+
+   '</div>'+
+   '<div class="dt-foot">'+
+     '<button class="dt-nav" id="dtPrev" '+(first&&dDay===0?'disabled':'')+' aria-label="Previous stop">'+
+       '<svg viewBox="0 0 24 24" style="fill:#f2efeb;transform:rotate(180deg)"><path d="'+CHEV+'"/></svg></button>'+
+     '<span class="dt-count">'+(at+1)+' of '+ids.length+'</span>'+
+     (nextLabel?'<button class="dt-next" id="dtNext">'+nextLabel+ico(CHEV,'currentColor',15)+'</button>'
+               :'<button class="dt-nav" id="dtNext" disabled aria-label="Next">'+ico(CHEV,'#f2efeb',17)+'</button>')+
+   '</div>';
+  document.getElementById('dtX').onclick=closeDetail;
+  document.getElementById('dtPrev').onclick=()=>stepDetail(-1);
+  const nx=document.getElementById('dtNext');
+  if(nx&&!nx.disabled)nx.onclick=()=>stepDetail(1);
+}
+addEventListener('keydown',e=>{
+  if(!dOpen)return;
+  if(e.key==='Escape')closeDetail();
+});
+
+function drawBookings(){
+  const el=document.getElementById('booklist'); if(!el)return;
+  const rows=[];
+  D.forEach((d,i)=>d.stops.forEach((st,j)=>{ if(st.res&&live(i,j))
+    rows.push('<li><b>'+st.n+'</b> \u2014 '+d.date+', '+st.t+
+      (st.tel?' <em>'+st.tel+'</em>':' <em>book online or via the villa</em>')+'</li>')}));
+  el.innerHTML=rows.join('');
+}
+
+function drawChrome(){
+  if(showGoogle&&gOK)paintMap();
+  document.getElementById('allLink').href=
+    'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent('Koh Samui, Thailand');
+  let stops=0,cost=0;
+  D.forEach((d,i)=>onStops(i).forEach(s=>{stops++;cost+=s.c||0}));
+  document.getElementById('tripline').textContent=
+    stops+' stops \u00b7 '+(Math.round(cost*FX)*6).toLocaleString()+' K\u010d for six on activities and food';
+  const n=dropped.size;
+  document.getElementById('resetBtn').style.display=n?'':'none';
+  document.getElementById('changed').textContent=n?n+' change'+(n>1?'s':'')+' from the original plan':'';
+}
+
+function go(i){cur=i;render();
+  if(innerWidth<=940)document.querySelector('.mod').scrollIntoView(
+    {behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'})}
+function render(){
+  [drawWx,drawShape,drawPills,drawPanel,drawSketch,drawBookings,drawChrome].forEach(fn=>{
+    try{fn()}catch(e){console.error('render step failed:',fn.name,e)}
+  });
+}
+
+let tt;const toast=m=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');
+  clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2400)};
+document.getElementById('resetBtn').onclick=()=>{dropped.clear();
+  Object.keys(routeCache).forEach(k=>delete routeCache[k]);render();toast('Original plan restored')};
+document.getElementById('copyBtn').onclick=async()=>{
+  const day=D[cur],p=pace(cur);
+  let o=day.date+' \u2014 '+day.ttl+'  ('+p.word+')\n'+day.gist+'\n\n';
+  day.stops.forEach((s,i)=>{if(live(cur,i))o+=s.t+'  '+s.n+(s.c?'  \u0e3f'+s.c:'')+'\n'});
+  o+='\nRoute: '+routeUrl(cur);
+  try{await navigator.clipboard.writeText(o);toast('Day copied')}catch(e){toast('Copy blocked by the browser')}
+};
+addEventListener('keydown',e=>{
+  if(e.target.matches('input,textarea'))return;
+  if(e.key==='ArrowRight'&&cur<D.length-1)go(cur+1);
+  if(e.key==='ArrowLeft'&&cur>0)go(cur-1);
+});
+render();
+bootMap();
+</script>
